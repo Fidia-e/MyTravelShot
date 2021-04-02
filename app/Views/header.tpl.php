@@ -37,4 +37,3 @@
         </table>
         <hr>
     </div>
-    <a href="<?= $router->generate('author-browse') ?>">LIEN</a>
