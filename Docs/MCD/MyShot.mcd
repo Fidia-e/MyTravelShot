@@ -1,0 +1,7 @@
+SHOT: title, picture, description, publication_date, author_id, created_at, updated_at
+:
+USER: firstname, lastname, email, password, city, country, role, created_at, updated_at
+
+HAS, ON AUTHOR, 11 SHOT
+AUTHOR: username, city, country, user_id, created_at, updated_at
+IS, 01 USER, 11 AUTHOR

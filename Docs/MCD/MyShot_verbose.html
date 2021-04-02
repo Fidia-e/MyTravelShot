@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+  #mld strong { font-weight: bold }
+  #mld i { font-style: italic }
+  #mld ul { list-style-type:square; margin: 0 0 1em 2em }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>SHOT</span> (
+    <span class='primary'>title</span>,
+    <span class='normal'>picture</span>,
+    <span class='normal'>description</span>,
+    <span class='normal'>publication_date</span>,
+    <span class='normal'>author_id</span>,
+    <span class='normal'>created_at</span>,
+    <span class='normal'>updated_at</span>,
+    <span class='foreign'>username</span>
+  )
+  <ul>
+    <li>Le champ <i>title</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>SHOT</i>.</li>
+    <li>Les champs <i>picture</i>, <i>description</i>, <i>publication_date</i>, <i>author_id</i>, <i>created_at</i> et <i>updated_at</i> étaient déjà de simples attributs de l'entité <i>SHOT</i>.</li>
+    <li>Le champ <i>username</i> est une clef étrangère. Il a migré à partir de l'entité <i>AUTHOR</i> par l'association de dépendance fonctionnelle <i>HAS</i> en perdant son caractère identifiant.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>USER</span> (
+    <span class='primary'>firstname</span>,
+    <span class='normal'>lastname</span>,
+    <span class='normal'>email</span>,
+    <span class='normal'>password</span>,
+    <span class='normal'>city</span>,
+    <span class='normal'>country</span>,
+    <span class='normal'>role</span>,
+    <span class='normal'>created_at</span>,
+    <span class='normal'>updated_at</span>
+  )
+  <ul>
+    <li>Le champ <i>firstname</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>USER</i>.</li>
+    <li>Les champs <i>lastname</i>, <i>email</i>, <i>password</i>, <i>city</i>, <i>country</i>, <i>role</i>, <i>created_at</i> et <i>updated_at</i> étaient déjà de simples attributs de l'entité <i>USER</i>.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>AUTHOR</span> (
+    <span class='primary'>username</span>,
+    <span class='normal'>city</span>,
+    <span class='normal'>country</span>,
+    <span class='normal'>user_id</span>,
+    <span class='normal'>created_at</span>,
+    <span class='normal'>updated_at</span>,
+    <span class='foreign'>firstname</span>
+  )
+  <ul>
+    <li>Le champ <i>username</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>AUTHOR</i>.</li>
+    <li>Les champs <i>city</i>, <i>country</i>, <i>user_id</i>, <i>created_at</i> et <i>updated_at</i> étaient déjà de simples attributs de l'entité <i>AUTHOR</i>.</li>
+    <li>Le champ <i>firstname</i> est une clef étrangère. Il a migré à partir de l'entité <i>USER</i> par l'association de dépendance fonctionnelle <i>IS</i> en perdant son caractère identifiant.</li>
+  </ul>
+</div>
+
+</div>
+</body>
+</html>

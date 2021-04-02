@@ -1,0 +1,11 @@
+%%mocodo
+:
+SHOT: title, picture, description, publication_date, author_id, created_at, updated_at, #username->AUTHOR->username
+:::
+USER: firstname, lastname, email, password, city, country, role, created_at, updated_at
+:
+
+
+:::
+AUTHOR: username, city, country, user_id, created_at, updated_at, #firstname->USER->firstname
+:::

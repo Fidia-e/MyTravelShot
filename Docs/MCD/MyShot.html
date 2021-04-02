@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>SHOT</span> (
+    <span class='primary'>title</span>,
+    <span class='normal'>picture</span>,
+    <span class='normal'>description</span>,
+    <span class='normal'>publication_date</span>,
+    <span class='normal'>author_id</span>,
+    <span class='normal'>created_at</span>,
+    <span class='normal'>updated_at</span>,
+    <span class='foreign'>username</span>
+  )
+</div>
+<div>
+  <span class='relation'>USER</span> (
+    <span class='primary'>firstname</span>,
+    <span class='normal'>lastname</span>,
+    <span class='normal'>email</span>,
+    <span class='normal'>password</span>,
+    <span class='normal'>city</span>,
+    <span class='normal'>country</span>,
+    <span class='normal'>role</span>,
+    <span class='normal'>created_at</span>,
+    <span class='normal'>updated_at</span>
+  )
+</div>
+<div>
+  <span class='relation'>AUTHOR</span> (
+    <span class='primary'>username</span>,
+    <span class='normal'>city</span>,
+    <span class='normal'>country</span>,
+    <span class='normal'>user_id</span>,
+    <span class='normal'>created_at</span>,
+    <span class='normal'>updated_at</span>,
+    <span class='foreign'>firstname</span>
+  )
+</div>
+</div>
+</body>
+</html>
