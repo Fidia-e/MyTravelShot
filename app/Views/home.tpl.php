@@ -33,6 +33,7 @@
                     </ul>
                     <h3><?= $shot->getTitle(); ?></h3>
                     <p><?= $shot->getDescription(); ?></p>
+                    <strong><p>par....</p></strong>
                   </div>
               </div>
             </div>

@@ -32,6 +32,13 @@ $router->map(
     'author-browse'
 );
 
+$router->map(
+    'GET',
+    '/utilisateurs',
+    'UserController::browse',
+    'user-browse'
+);
+
 
 
 /* ---------------------------------------------------------------------------------------
@@ -50,9 +57,9 @@ $dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404')
 $dispatcher->setControllersNamespace('App\Controllers');
 
 // je définie les arguments que j'envoie à mon controller
-$dispatcher->setControllersArguments(
-    $match['name'],
-);
+// $dispatcher->setControllersArguments(
+//     $match['name'],
+// );
 
 // je lance le dispatch qui va exécuter la méthode du controller
 $dispatcher->dispatch();

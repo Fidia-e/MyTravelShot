@@ -1,23 +1,26 @@
 
-<h2>Liste des auteurs</h2>
+<h2>Liste des utilisateurs</h2>
 <table class="table table-hover mt-4">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Pseudo</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Email</th>
             <th scope="col">Ville</th>
             <th scope="col">Pays</th>
-            <th scope="col">Identifiant utilisateur</th>
+            <th scope="col">Rôle</th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach($authors as $author): ?>
+        <?php foreach($users as $user): ?>
         <tr>
             <th scope="row"><?= $author->getId() ?></th>
-            <td><?= $author->getUsername() ?></td>
-            <td><?= $author->getCity() ?></td>
-            <td><?= $author->getCountry() ?></td>
-            <td><?= $author->getUserId() ?></td>
+            <td><?= $user->getFirstname() ?></td>
+            <td><?= $user->getLastname() ?></td>
+            <td><?= $user->getEmail() ?></td>
+            <td><?= $user->getCity() ?></td>
+            <td><?= $user->getCountry() ?></td>
+            <td><?= $user->getRole() ?></td>
             <td class="text-right">
                 <a href="#" class="btn btn-sm btn-warning">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

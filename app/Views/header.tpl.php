@@ -25,15 +25,22 @@
     <![endif]-->
 </head>
 <body id="page-top">
-    <div class="table-responsive">
-        <table class="table text-center">
-            <thead>
-                <tr>
-                <td><a class="link active" href="#" data-toggle="tab">Galerie</a></td>
-                <td><a class="link" href="#" data-toggle="tab">Auteurs</a></td>
-                <td><a class="link" href="#category3" data-toggle="tab">Endroits</a></td>
-                </tr>
-            </thead>
-        </table>
-        <hr>
-    </div>
+
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-fixed-top navbar-default">
+     <div class="container">
+         <div class="navbar-header">
+             <h3 class="Logo">My Travel Shot</h3>
+         </div>
+         <div class="collapse navbar-collapse navbar-right" id="menu">
+            <ul class="nav navbar-nav">
+              <li class="active lien"><a href="#"><i class="fa fa-camera sr-icons"></i> Galerie</a></li>
+              <li class=" lien"><a href="about.html"><i class="fa fa-pencil sr-icons"></i> Auteurs</a></li>
+              <li class=" lien"><a href="blog.html"><i class="fa fa-user sr-icons"></i> Utilisateurs</a></li>
+              <li><a href="contact.html"><i class="fa fa-phone-square sr-icons"></i> Contact</a></li>
+            </ul>
+         </div>
+     </div>
+   </nav>
+<!-- End of Navigation Bar -->
