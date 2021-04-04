@@ -42,6 +42,33 @@ class Author extends CoreModel {
     }
 
 
+    /**
+     * Méthode permettant de récupérer un auteur avec son id
+     * 
+     * @param int $authorId ID de l'auteur
+     * @return Author
+     */
+    public static function find($authorId)
+    {
+        // connexion à la BDD
+        $pdo = Database::getPDO();
+
+        // déclaration de la requête
+        $sql = 'SELECT * FROM `category` WHERE `id` =' . $authorId;
+
+        // je récupère une instance de la class pdoStatement
+        // je lui donne ma requête
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute();
+
+        // un seul résultat sous forme d'objet => fetchObject
+        $result = $pdoStatement->fetchObject('App\Models\Author');
+
+        // retourner le résultat
+        return $result;
+    }
+
+
 
     /**
      * Get the value of username

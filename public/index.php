@@ -18,6 +18,9 @@ $router->setBasePath($_SERVER['BASE_URI']);
 
 
 /* --------------------------------- liste des routes -----------------------------------*/
+
+/* ---------------------------------- Page d'accueil ------------------------------------*/
+
 $router->map(
     'GET',
     '/',
@@ -25,12 +28,23 @@ $router->map(
     'main-home'
 );
 
+/* ------------------------------------- Auteurs ---------------------------------------*/
+
 $router->map(
     'GET',
     '/auteurs',
     'AuthorController::browse',
     'author-browse'
 );
+
+$router->map(
+    'GET',
+    '/auteurs/modifier/[i:id]',
+    'AuthorController::edit',
+    'author-edit'
+);
+
+/* ---------------------------------- Utilisateurs ------------------------------------*/
 
 $router->map(
     'GET',
@@ -57,9 +71,9 @@ $dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404')
 $dispatcher->setControllersNamespace('App\Controllers');
 
 // je définie les arguments que j'envoie à mon controller
-// $dispatcher->setControllersArguments(
-//     $match['name'],
-// );
+$dispatcher->setControllersArguments(
+    $match['name'],
+);
 
 // je lance le dispatch qui va exécuter la méthode du controller
 $dispatcher->dispatch();
