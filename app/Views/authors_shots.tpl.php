@@ -3,7 +3,7 @@
       <div class="row popup-gallery">
 
 
-        <?php foreach ($authors-shots as $shot) : ?>
+        <?php foreach ($shotByAuthor as $shot) : ?>
           <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="sol">
               <img class="img-responsive" src="<?= $shot->getPicture(); ?>" alt="First category picture">

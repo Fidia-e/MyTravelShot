@@ -16,7 +16,7 @@
                   <p><?= $author->getCountry(); ?></p>
                 </li>
                 <li>
-                  <a class="gallery" href="#" data-toggle="tooltip" data-original-title="">
+                  <a class="gallery" href="<?= $router->generate('shot-browseByAuthor', ['author_id' => $author->getId()]) ?>" data-toggle="tooltip" data-original-title="">
                     Voir ses photos
                   </a>
                 </li>

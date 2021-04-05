@@ -10,7 +10,7 @@ class UserController extends CoreController {
      * Méthode permettant d'ajouter un utilisateur en BDD.
      *
      */
-    public function add()
+    public function create()
     {
 
         // récupération des valeurs des champs
@@ -26,7 +26,8 @@ class UserController extends CoreController {
         // création d'un tableau d'erreurs, vide
         $errorList = [];
 
-        // vérification de la présence du token et de se bonne correspondance avec la session
+        // vérification du token de la session
+        // s'il correspond bien au user courant
         if(empty($token) || $token != $_SESSION['csrfToken']){
             $errorList[] = "Erreur CSRF. Va hacker ailleurs !";
         }
@@ -64,11 +65,10 @@ class UserController extends CoreController {
         // s'il n'y a pas d'erreurs (donc $errorList est vide), alors on peut enregistrer l'utilisateur en BDD.
         if(empty($errorList)) {
             
-            // J'instance un nouvel utilisateur
+            // j'instancie un nouvel utilisateur
             $user = new User;
 
-            // On définit les différentes propriétés de l'utilisateur.
-            // @copyright 2020 Frédéric & Marjolaine
+            // je définie les différentes propriétés de l'utilisateur.
             $user->setEmail($email);
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
@@ -76,7 +76,8 @@ class UserController extends CoreController {
             $user->setCity($city);
             $user->setCountry($country);
             $user->setRole($role);
-            // On appelle la méthode permettant de sauvegarder l'utilisateur en BDD.
+
+            // j'appelle la méthode permettant de sauvegarder l'utilisateur en BDD.
             $result = $user->save();
             
             // Si la requête a marché, alors result = true, je redirige. Sinon, j'ajoute un message d'erreur dans la liste.

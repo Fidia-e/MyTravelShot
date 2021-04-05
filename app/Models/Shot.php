@@ -28,7 +28,7 @@ class Shot extends CoreModel {
         $pdo = Database::getPDO();
 
         // je déclare ma requête
-        $sql = 'SELECT * FROM shot';
+        $sql = 'SELECT * FROM `shot`';
 
 
         // je récupère une instance de la class pdoStatement
@@ -61,10 +61,8 @@ class Shot extends CoreModel {
 
         // je déclare ma requête
         $sql = 'SELECT *
-                FROM shot
-                INNER JOIN author
-                ON shot.author_id = author.id
-                WHERE author.id = :author_id';
+                FROM `shot`
+                WHERE `author_id` = :author_id';
 
 
         // je récupère une instance de la class pdoStatement

@@ -16,7 +16,7 @@ class ShotController extends CoreController {
         $viewVars = ['shotByAuthor' => $datas];
         // dd($datas);
 
-        $this->show('authors-shots', $viewVars);
+        $this->show('authors_shots', $viewVars);
     }
 
 }

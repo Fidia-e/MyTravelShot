@@ -27,7 +27,7 @@ class Author extends CoreModel {
         $pdo = Database::getPDO();
 
         // je déclare ma requête
-        $sql = 'SELECT * FROM author';
+        $sql = 'SELECT * FROM `author`';
 
 
         // je récupère une instance de la class pdoStatement

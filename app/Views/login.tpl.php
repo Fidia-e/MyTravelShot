@@ -1,6 +1,6 @@
 <h1>Bienvenue sur le backoffice</h1>
 
-<form method="POST" action="#">
+<form method="POST" action="<?= $router->generate('admin-authenticate') ?>">
   <div class="form-group">
     <label for="email">Adresse e-mail</label>
     <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">

@@ -39,7 +39,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/auteurs/photos',
+    '/auteurs/photos/[i:author_id]',
     'ShotController::browseByAuthor',
     'shot-browseByAuthor'
 );
@@ -54,6 +54,12 @@ $router->map(
     'admin-login'
 );
 
+$router->map(
+    'POST',
+    '/login/authenticate',
+    'AdminController::authenticate',
+    'admin-authenticate'
+);
 
 /* ------------------------------------- Shots ---------------------------------------*/
 

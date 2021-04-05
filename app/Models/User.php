@@ -51,7 +51,69 @@ class User extends CoreModel {
      */
     public static function findByEmail($email)
     {
-        // TODO
+        // Récupération de PDO
+        $pdo = Database::getPDO();
+
+        // Écriture de la requête SQL
+        $sql = "SELECT * 
+                FROM `user`
+                WHERE `email` = :email
+                ";
+        
+        // je prépare la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // remplacement du paramètre email par sa vraie valeur
+        $pdoStatement->bindValue(':email', $email);
+
+        // exécution de la requête
+        $pdoStatement->execute();
+
+        // récupération du résultat sous forme d'objet
+        $result = $pdoStatement->fetchObject(self::class);
+
+        // je retourne l'utilisateur trouvé
+        return $result;
+    }
+
+
+    public function insert()
+    {
+       
+        // Appel de notre interprète SQL : PDO
+        $pdo = Database::getPDO();
+
+        // On définit notre requête avec des tokens/mots remplaçant nos valeurs. On indique ainsi à MySQL à quoi doit ressembler la requête, peu importe nos valeurs.
+        // @copyright 2020 Nicolas
+        $sql = "INSERT INTO app_user (`email`, `password`, `firstname`, `lastname`, `role`, `status`) 
+        VALUES (:email, :password, :firstname, :lastname, :role, :status)";
+
+        // On prépare la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // on remplace les tokens par leur vraie valeur
+        // on peut ajouter une seconde sécurité pour forcer le type de la donnée (bindValue)
+
+        $pdoStatement->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':password', $this->password, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':city', $this->city, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':role', $this->role, PDO::PARAM_STR);
+
+        // Execution de la requête ! Execute renvoie true si la requête fonctionne
+        $result = $pdoStatement->execute();
+        // Si ma requête fonctionne
+        if($result) {
+            // Je mets à jour l'ID de mon objet avec le dernier ID inséré en BDD.
+            $this->id = $pdo->lastInsertId();
+            // On retourne pour indiquer que la requête s'est bien passée
+            return true;
+        }
+
+        // Si le code arrive jusqu'ici, c'est que la requête ne s'est pas bien passée. On renvoie false.
+        return false;
     }
 
 

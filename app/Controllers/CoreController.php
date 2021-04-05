@@ -35,11 +35,13 @@ abstract class CoreController {
 
      protected function show(string $viewName, $viewVars = [])
      {
+         global $router; 
+         
         // je définie ma base uri, chemin absolu du mon projet
         $viewVars['baseUri'] = $_SERVER['BASE_URI'];
 
         // je définie la route absolue pour mes assets
-        $viewVars['assetsBaseUri'] = $_SERVER['BASE_URI'] . 'assets/';
+        $viewVars['assetsBaseUri'] = $_SERVER['BASE_URI'] . '/assets/';
 
         // je définie le nom de mes routes
         $viewVars['currentPage'] = $viewName;
@@ -52,4 +54,13 @@ abstract class CoreController {
         require __DIR__ . '/../views/' . $viewName . '.tpl.php';
         require __DIR__ . '/../views/footer.tpl.php';
      }
+
+      /**
+      * Méthode permettant de rediriger l'utilisateur, dans tous les controllers.
+      */
+      public function redirect($route) {
+      global $router;
+
+      header('Location: '. $router->generate($route));
+  }
 }

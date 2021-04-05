@@ -19,13 +19,13 @@
    </footer>
 
    <!-- Jquery -->
-   <script type="text/javascript" src="../public/assets/js/jquery.min.js"></script>
+   <script type="text/javascript" src="<?= $assetsBaseUri ?>js/jquery.min.js"></script>
    <!-- Bootstrap core Javascript -->
-   <script type="text/javascript" src="../public/assets/bootstrap/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="<?= $assetsBaseUri ?>bootstrap/js/bootstrap.min.js"></script>
    <!-- Plugins -->
-   <script type="text/javascript" src="../public/assets/js/jquery.easing.min.js"></script>
-   <script type="text/javascript" src="../public/assets/js/jquery.magnific-popup.min.js"></script>
-   <script type="text/javascript" src="../public/assets/js/scrollreveal.min.js"></script>
-   <script type="text/javascript" src="../public/assets/js/script.js"></script>
+   <script type="text/javascript" src="<?= $assetsBaseUri ?>js/jquery.easing.min.js"></script>
+   <script type="text/javascript" src="<?= $assetsBaseUri ?>js/jquery.magnific-popup.min.js"></script>
+   <script type="text/javascript" src="<?= $assetsBaseUri ?>js/scrollreveal.min.js"></script>
+   <script type="text/javascript" src="<?= $assetsBaseUri ?>js/script.js"></script>
 </body>
 </html>
