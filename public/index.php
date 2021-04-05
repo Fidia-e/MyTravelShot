@@ -3,7 +3,7 @@
 // On include les dépendances Composer
 require __DIR__ . '/../vendor/autoload.php';
 
-// session_start();
+session_start();
 
 /* ---------------------------------------------------------------------------------------
 --------------------------------------- MAPPING ------------------------------------------
@@ -17,7 +17,7 @@ $router->setBasePath($_SERVER['BASE_URI']);
 
 
 
-/* --------------------------------- liste des routes -----------------------------------*/
+/* --------------------------------- LISTE DES ROUTES -----------------------------------*/
 
 /* ---------------------------------- Page d'accueil ------------------------------------*/
 
@@ -28,7 +28,7 @@ $router->map(
     'main-home'
 );
 
-/* ------------------------------------- Auteurs ---------------------------------------*/
+/* ------------------------------------- Auteurs ----------------------------------------*/
 
 $router->map(
     'GET',
@@ -39,18 +39,111 @@ $router->map(
 
 $router->map(
     'GET',
-    '/auteurs/modifier/[i:id]',
+    '/auteurs/photos',
+    'ShotController::browseByAuthor',
+    'shot-browseByAuthor'
+);
+
+
+/* ----------------------------------- Back Office -------------------------------------*/
+
+$router->map(
+    'GET',
+    '/login',
+    'AdminController::login',
+    'admin-login'
+);
+
+
+/* ------------------------------------- Shots ---------------------------------------*/
+
+$router->map(
+    'GET',
+    'admin/shot/list',
+    'ShotController::list',
+    'shot-list'
+);
+
+$router->map(
+    'GET',
+    'admin/shot/modifier/[i:id]',
+    'ShotController::edit',
+    'shot-edit'
+);
+
+$router->map(
+    'GET',
+    'admin/shot/ajouter',
+    'ShotController::add',
+    'shot-add'
+);
+
+$router->map(
+    'POST',
+    'admin/shot/ajouter',
+    'ShotController::create',
+    'shot-create'
+);
+
+
+/* ------------------------------------- Authors ---------------------------------------*/
+
+$router->map(
+    'GET',
+    'admin/auteurs/list',
+    'AuthorController::list',
+    'author-list'
+);
+
+$router->map(
+    'GET',
+    'admin/auteurs/modifier/[i:id]',
     'AuthorController::edit',
     'author-edit'
 );
 
-/* ---------------------------------- Utilisateurs ------------------------------------*/
+$router->map(
+    'GET',
+    'admin/auteurs/ajouter',
+    'AuthorController::add',
+    'author-add'
+);
+
+$router->map(
+    'POST',
+    'admin/auteurs/ajouter',
+    'AuthorController::create',
+    'author-create'
+);
+
+/* -------------------------------------- Users ---------------------------------------*/
 
 $router->map(
     'GET',
-    '/utilisateurs',
-    'UserController::browse',
-    'user-browse'
+    'admin/utilisateurs',
+    'UserController::list',
+    'user-list'
+);
+
+$router->map(
+    'GET',
+    'admin/utilisateurs/modifier/[i:id]',
+    'UserController::edit',
+    'user-edit'
+);
+
+$router->map(
+    'GET',
+    'admin/utilisateurs/ajouter',
+    'UserController::add',
+    'user-add'
+);
+
+$router->map(
+    'POST',
+    'admin/utilisateurs/ajouter',
+    'UserController::create',
+    'user-create'
 );
 
 

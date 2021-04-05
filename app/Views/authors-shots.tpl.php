@@ -3,7 +3,7 @@
       <div class="row popup-gallery">
 
 
-        <?php foreach ($shots as $shot) : ?>
+        <?php foreach ($authors-shots as $shot) : ?>
           <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="sol">
               <img class="img-responsive" src="<?= $shot->getPicture(); ?>" alt="First category picture">
@@ -33,7 +33,6 @@
                     </ul>
                     <h3><?= $shot->getTitle(); ?></h3>
                     <p><?= $shot->getDescription(); ?></p>
-                    <strong><p>par <?= $shot->getAuthorId(); ?></p></strong>
                   </div>
               </div>
             </div>

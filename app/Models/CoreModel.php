@@ -37,4 +37,19 @@ class CoreModel
     {
         return $this->updated_at;
     }
+
+    /**
+     * Méthode permettant de sauvegarde en BDD, n'importe quel model.
+     * Si l'objet a un ID de défini, c'est qu'il existe déjà. Donc je dois mettre à jour son entrée en BDD.
+     * Si l'objet n'a pas encore d'ID, il n'existe pas dans la BDD. Je dois donc l'insérer.
+     */
+    public function save()
+    {
+        // si pas d'ID, l'objet n'existe pas => on l'insère
+        if($this->id == null) {
+            return $this->insert();
+        } else {
+            return $this->update();
+        }
+    }
 }

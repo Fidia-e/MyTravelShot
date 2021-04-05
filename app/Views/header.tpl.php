@@ -35,9 +35,9 @@
          </div>
          <div class="collapse navbar-collapse navbar-right" id="menu">
             <ul class="nav navbar-nav">
-              <li class="active lien"><a href="#"><i class="fa fa-camera sr-icons"></i> Galerie</a></li>
-              <li class=" lien"><a href="#"><i class="fa fa-pencil sr-icons"></i> Auteurs</a></li>
-              <li class=" lien"><a href="blog.html"><i class="fa fa-user sr-icons"></i> Utilisateurs</a></li>
+              <li class="active lien"><a href="home.tpl.php"><i class="fa fa-camera sr-icons"></i> Galerie</a></li>
+              <li class=" lien"><a href="#"><i class="fa fa-pencil sr-icons"></i> Par auteur</a></li>
+              <li class=" lien"><a href="blog.html"><i class="fa fa-user sr-icons"></i> Back Office</a></li>
               <li><a href="contact.html"><i class="fa fa-phone-square sr-icons"></i> Contact</a></li>
             </ul>
          </div>

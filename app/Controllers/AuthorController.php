@@ -7,11 +7,32 @@ use App\Models\Author;
 class AuthorController extends CoreController {
 
     /**
-     * Affiche la page des auteurs
+     * Affiche la page des auteurs pour les users
      */
     
     public function browse()
     { 
+        $datas = Author::findAll();
+        $viewVars = ['authors' => $datas];
+        // dd($datas);
+        // dd('coucou');
+
+        $this->show('authors', $viewVars);
+    }
+
+
+
+    /* ---------------------------------------------------------------------------------------
+    ----------------------------------------- ADMIN ------------------------------------------
+    -----------------------------------------------------------------------------------------*/
+
+    /**
+     * Liste les auteurs pour l'admin
+     *
+     * @return void
+     */
+    public function list()
+    {
         $datas = Author::findAll();
         $viewVars = ['authors' => $datas];
         // dd($datas);
@@ -27,7 +48,7 @@ class AuthorController extends CoreController {
     {
         // Récupération de l'auteur lié à l'ID présent dans l'URL
         $author = Author::find($id);
-        $token = $this->generateCsrfToken();
+        // $token = $this->generateCsrfToken();
         
         // Envoi de l'auteur chargé à la vue
         $this->show('author/edit', ['author' => $author, 'token' => $token ]);

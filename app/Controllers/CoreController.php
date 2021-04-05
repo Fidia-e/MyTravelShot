@@ -9,6 +9,22 @@ use App\Models\Shot;
 
 abstract class CoreController {
 
+   public function __construct($routeName = false)
+   {
+      $aclList = [
+         'main-home' => [],
+         'shot-browseByAuthor' => [],
+         'admin-login' => ['user','admin'],
+         'author-browse'=> ['admin'],
+         'author-add'=> ['admin'],
+         'author-edit'=> ['admin'],
+         'user-browse'=> ['admin'],
+         'user-add'=> ['admin'],
+         'user-edit'=> ['admin'],
+       
+     ];
+   }
+
     /**
      * Méthode qui se charge d'afficher mes vues
      *

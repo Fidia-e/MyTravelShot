@@ -10,11 +10,11 @@ use PDO;
 class Shot extends CoreModel {
 
     // Je déclare mes propriétés
-    protected $title;
-    protected $picture;
-    protected $description;
-    protected $publication_date;
-    protected $author_id;
+    private $title;
+    private $picture;
+    private $description;
+    private $publication_date;
+    private $author_id;
 
     /**
      * Methode me permettant de récuperer toutes les photos
@@ -23,7 +23,7 @@ class Shot extends CoreModel {
      */
     public static function findAll()
     {
-        // je me connecte ma BDD grâce
+        // je me connecte ma BDD
         // en récupérant l'instance PDO
         $pdo = Database::getPDO();
 
@@ -41,6 +41,48 @@ class Shot extends CoreModel {
 
         return $results;
     }
+
+
+
+    /* ---------------------------------------------------------------------------------------
+    ----------------------------------------- ADMIN ------------------------------------------
+    -----------------------------------------------------------------------------------------*/
+
+    /**
+     * Methode me permettant de récuperer toutes les photos en fonction de son auteur
+     *
+     * @return array Shot[] // je vais récupérer un tableau d'objets
+     */
+    public static function findByAuthorId($author_id)
+    {
+        // je me connecte ma BDD
+        // en récupérant l'instance PDO
+        $pdo = Database::getPDO();
+
+        // je déclare ma requête
+        $sql = 'SELECT *
+                FROM shot
+                INNER JOIN author
+                ON shot.author_id = author.id
+                WHERE author.id = :author_id';
+
+
+        // je récupère une instance de la class pdoStatement
+        // je lui donne ma requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // j'associe la valeur de :author_id à $author_id
+        $pdoStatement->bindValue(':author_id', $author_id, PDO::PARAM_INT);
+
+        // j'execute la requête
+        $pdoStatement->execute();
+
+        // je retourne le résultat de ma requête sous forme de tableau d'objets
+        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
+
+        return $results;
+    }
+
 
 
     /**

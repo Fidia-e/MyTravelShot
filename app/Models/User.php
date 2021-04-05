@@ -10,13 +10,13 @@ use PDO;
 // étendue du CoreModel
 class User extends CoreModel {
 
-    protected $firstname;
-    protected $lastname;
-    protected $email;
-    protected $password;
-    protected $city;
-    protected $country;
-    protected $role;
+    private $firstname;
+    private $lastname;
+    private $email;
+    private $password;
+    private $city;
+    private $country;
+    private $role;
 
 
     /**
@@ -26,7 +26,7 @@ class User extends CoreModel {
      */
     public static function findAll()
     {
-        // je me connecte ma BDD grâce
+        // je me connecte ma BDD 
         // en récupérant l'instance PDO
         $pdo = Database::getPDO();
 
@@ -43,6 +43,15 @@ class User extends CoreModel {
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
 
         return $results;
+    }
+
+
+    /**
+     * 
+     */
+    public static function findByEmail($email)
+    {
+        // TODO
     }
 
 

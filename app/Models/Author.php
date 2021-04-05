@@ -10,10 +10,10 @@ use PDO;
 // étendue du CoreModel
 class Author extends CoreModel {
 
-    protected $username;
-    protected $city;
-    protected $country;
-    protected $user_id;
+    private $username;
+    private $city;
+    private $country;
+    private $user_id;
 
     /**
      * Methode me permettant de récuperer tous les auteurs
@@ -54,7 +54,7 @@ class Author extends CoreModel {
         $pdo = Database::getPDO();
 
         // déclaration de la requête
-        $sql = 'SELECT * FROM `category` WHERE `id` =' . $authorId;
+        $sql = 'SELECT * FROM `author` WHERE `id` =' . $authorId;
 
         // je récupère une instance de la class pdoStatement
         // je lui donne ma requête
