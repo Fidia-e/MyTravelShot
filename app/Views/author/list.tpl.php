@@ -1,4 +1,5 @@
-
+<br>
+<a href="<?= $router->generate('author-add') ?>" class="btn btn-success float-right">Ajouter</a>
 <h2>Liste des auteurs</h2>
 <table class="table table-hover mt-4">
     <thead>
@@ -8,16 +9,18 @@
             <th scope="col">Ville</th>
             <th scope="col">Pays</th>
             <th scope="col">Identifiant utilisateur</th>
+            <th scope="col">Nom & prénom utilisateur</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach($authors as $author): ?>
         <tr>
-            <th scope="row"><?= $author->getId() ?></th>
+            <th scope="col"><?= $author->getId() ?></th>
             <td><?= $author->getUsername() ?></td>
             <td><?= $author->getCity() ?></td>
             <td><?= $author->getCountry() ?></td>
             <td><?= $author->getUserId() ?></td>
+            <td></td>
             <td class="text-right">
                 <a href="#" class="btn btn-sm btn-warning">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

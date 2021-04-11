@@ -38,8 +38,8 @@ class AdminController extends CoreController {
                 // si le mdp correspond, on stocke le user dans une session courante
                 $_SESSION['currentUser'] = $user;
 
-                // et je redirige vers la liste des auteurs dans le BO
-                $this->redirect('author-list');
+                // et je redirige vers la page d'accueil
+                $this->redirect('main-home');
 
                 // sinon je lui envoie un message d'erreur
             } else {
@@ -62,44 +62,9 @@ class AdminController extends CoreController {
     {
         // je retire l'entrée currentUser du tableau $_SESSION
         unset($_SESSION['currentUser']);
-        // je redirige
-        $this->redirect($baseUri . 'admin-login');
+        // je redirige vers la page d'accueil
+        $this->redirect('main-home');
     }
 
-    /**
-     * Page listant les utilisateurs
-     *
-     */
-    public function browseUsers()
-    {
-        // Vérification du rôle de l'user connecté
-        // Il faut impérativement être admin pour avoir accès à la page.
-        // Plus besoin maintenant que c'est géré dans le coreController
-        // $this->checkAuthorization(['admin']);
-
-        // Récupération de tous les users grâce à la méthode statique "findAll()"
-        $users = AppUser::findAll();
-        // Je fais un tableau de données à passer à ma vue.
-        $viewVars = ['users' => $users];
-
-        $this->show('user/list', $viewVars);
-    }
-
-    /**
-     * Page affichant le formulaire d'ajout d'un utilisateur
-     *
-     * @return void
-     */
-    public function addUsers()
-    {
-        // Vérification du rôle de l'user connecté
-        // Il faut impérativement être admin pour avoir accès à la page.
-        // $this->checkAuthorization(['admin']);
-
-        // Génération d'un token aléatoire 
-        // $token = $this->generateCsrfToken();
-
-        $this->show('user/add', ['token' => $token]);
-    }
     
 }

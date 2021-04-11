@@ -9,12 +9,13 @@ class ErrorController extends CoreController {
      *
      * @return void
      */
-    public function err404() {
+    public function err404() 
+    {
         // j'envoie le header 404
         header('HTTP/1.0 404 Not Found');
 
         // puis je gère l'affichage
-        $this->show('err404');
+        $this->show('error/err404');
     }
 
     /**
@@ -28,7 +29,9 @@ class ErrorController extends CoreController {
         http_response_code(403);
 
         // puis je gère l'affichage
-        $this->show('err403');
+        $this->show('error/err403');
+
+        // j'empêche l'execution du code qui est à la suite
         exit();
     }
 }

@@ -1,3 +1,11 @@
+<br>
+<?php if(isset($_SESSION['currentUser'])) : ?>
+    <p class="display-4">
+      <h1> Bonjour <?php echo $_SESSION['currentUser']->getFirstname() ?> !</h1>
+    </p>
+<?php endif; ?>
+
+
 <div class="tab-content">
    <div id="category1" class="tab-pane active" >
       <div class="row popup-gallery">

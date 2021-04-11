@@ -32,8 +32,7 @@ class Author extends CoreModel {
 
         // je récupère une instance de la class pdoStatement
         // je lui donne ma requête
-        $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute();
+        $pdoStatement = $pdo->query($sql);
 
         // je retourne le résultat de ma requête sous forme de tableau d'objets
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
@@ -57,9 +56,8 @@ class Author extends CoreModel {
         $sql = 'SELECT * FROM `author` WHERE `id` =' . $authorId;
 
         // je récupère une instance de la class pdoStatement
-        // je lui donne ma requête
-        $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute();
+        // à qui je donne ma requête
+        $pdoStatement = $pdo->query($sql);
 
         // un seul résultat sous forme d'objet => fetchObject
         $result = $pdoStatement->fetchObject('App\Models\Author');
@@ -68,11 +66,59 @@ class Author extends CoreModel {
         return $result;
     }
 
+    /**
+     * Méthode permettant d'ajouter un auteur à la BDD
+     *
+     */
     public function insert()
     {
+       
+        // appel de notre interprète SQL : PDO
+        $pdo = Database::getPDO();
 
-        // TODO
+        // je définie ma requête avec des tokens/mots remplaçant mes valeurs
+        // j'indique ainsi à MySQL à quoi doit ressembler la requête peu importe les valeurs
+        // c'est ce qu'on appelle des requêtes préparées
+        $sql = "INSERT INTO author (
+            `username`, 
+            `city`, 
+            `country`, 
+            `user_id`
+            ) 
+        VALUES (
+            :firstname, 
+            :city, 
+            :country, 
+            :user_id
+            )";
+
+        // je prépare la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // on remplace les 'tokens' par leur vraie valeur
+        // on peut ajouter une seconde sécurité pour forcer le type de la donnée (bindValue)
+        $pdoStatement->bindValue(':username', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':city', $this->city, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':user_id', $this->role, PDO::PARAM_INT);
+
+        // j'exécute la requête
+        $result = $pdoStatement->execute();
+
+        // si ma requête fonctionne
+        if($result) {
+            // je mets à jour l'ID de mon objet avec le dernier ID inséré en BDD
+            $this->id = $pdo->lastInsertId();
+            // et retourne pour indiquer que la requête s'est bien passée
+            return true;
+        }
+
+        // si le code arrive jusqu'ici, c'est que la requête ne s'est pas bien passée
+        // on renvoie donc 'false'
+        return false;
     }
+
+
 
     public function update()
     {

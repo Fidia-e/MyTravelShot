@@ -34,10 +34,26 @@
          </div>
          <div class="collapse navbar-collapse navbar-right" id="menu">
             <ul class="nav navbar-nav">
-              <li class="active lien"><a href="<?= $router->generate('main-home') ?>"><i class="fa fa-camera sr-icons"></i> Galerie</a></li>
-              <li class=" lien"><a href="<?= $router->generate('author-browse') ?>"><i class="fa fa-pencil sr-icons"></i> Par auteur</a></li>
-              <li class=" lien"><a href="<?= $router->generate('admin-login') ?>"><i class="fa fa-user sr-icons"></i> Back Office</a></li>
-              <li class=" lien"><a href="<?+ $router->generate('admin-logout') ?>"><i class="fa fa-user sr-icons"></i> Déconnexion</a></li>
+              <li class="active lien">
+                <a href="<?= $router->generate('main-home') ?>"><i class="fa fa-camera sr-icons"></i> Galerie </a>
+              </li>
+              <li class=" lien">
+                <a href="<?= $router->generate('author-browse') ?>"><i class="fa fa-pencil sr-icons"></i> Par auteur </a>
+              </li>
+              <?php if(isset($_SESSION['currentUser'])) : ?>
+              <li class=" lien">
+                <a href="<?= $router->generate('author-list') ?>"><i class="fa fa-user sr-icons"></i> Gestion </a>
+              </li>
+              <?php endif; ?>
+              <?php if(empty($_SESSION['currentUser'])) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $router->generate('admin-login') ?>"><i class="fa fa-user sr-icons"></i> Connexion</a>
+                    </li>
+              <?php else: ?>
+              <li class=" lien">
+                <a href="<?= $router->generate('admin-logout') ?>"><i class="fa fa-user sr-icons"></i> Déconnexion </a>
+              </li>
+              <?php endif; ?>
             </ul>
          </div>
      </div>

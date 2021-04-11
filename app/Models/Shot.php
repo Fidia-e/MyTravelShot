@@ -33,8 +33,7 @@ class Shot extends CoreModel {
 
         // je récupère une instance de la class pdoStatement
         // je lui donne ma requête
-        $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute();
+        $pdoStatement = $pdo->query($sql);
 
         // je retourne le résultat de ma requête sous forme de tableau d'objets
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);

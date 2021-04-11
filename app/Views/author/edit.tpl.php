@@ -1,4 +1,5 @@
-<a href="#" class="btn btn-success float-right">Retour</a>
+<br>
+<a href="<?= $router->generate('author-list') ?>" class="btn btn-success float-right">Retour</a>
 <h2>Modification d'un auteur</h2>
 
 <form action="#" method="POST" class="mt-5">

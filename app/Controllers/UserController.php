@@ -32,7 +32,7 @@ class UserController extends CoreController {
         // génération d'un token aléatoire 
         $token = $this->generateCsrfToken();
 
-        $this->show('user/add');
+        $this->show('user/add', ['token' => $token]);
         // ne pas oublier d'ajouter le token au dessus comme 2e arg de show!!! ', ['token' => $token]'
     }
 
@@ -43,10 +43,6 @@ class UserController extends CoreController {
     public function create()
     {
 
-        // vérification du rôle de l'user connecté
-        // il faut impérativement être admin pour avoir accès à la page
-        // $this->checkAuthorization(['admin']);
-
         // récupération des valeurs des champs
         $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
         $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
@@ -55,15 +51,16 @@ class UserController extends CoreController {
         $city = trim(filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING));
         $country = trim(filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING));
         $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
-        // $token = filter_input(INPUT_POST, 'token');
+        $token = filter_input(INPUT_POST, 'token');
 
         // création d'un tableau d'erreurs, vide
         $errorList = [];
 
-        // vérification de la présence du token et de se bonne correspondance avec la session
-        // if(empty($token) || $token != $_SESSION['csrfToken']){
-        //     $errorList[] = "Erreur CSRF. Va hacker ailleurs !";
-        // }
+        // vérification de la présence du token 
+        // et de sa bonne correspondance avec la session
+        if(empty($token) || $token != $_SESSION['csrfToken']){
+            $errorList[] = "Erreur CSRF !";
+        }
 
         // vérification des valeurs
         // si le prénom est vide
@@ -144,7 +141,7 @@ class UserController extends CoreController {
             $viewVars = [
                 'errorList' => $errorList,
                 'inputValues' => [
-                    // 'token' => $token,
+                    'token' => $token,
                     'firstname' => filter_input(INPUT_POST, 'firstname'),
                     'lastname' => filter_input(INPUT_POST, 'lastname'),
                     'email' => filter_input(INPUT_POST, 'email'),
@@ -156,4 +153,58 @@ class UserController extends CoreController {
             $this->show('user/add', $viewVars);
         }
     }
+
+
+    /**
+     * Méthode permettant de modifier un utilisateur
+     */
+    public function update($userId)
+    {
+        // récupération du produit lié à l'ID présent dans l'URL
+        $user = User::find($userId);
+
+        // récupération des champs du formulaire
+        $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
+        $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
+        $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
+        $city = trim(filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING));
+        $country = trim(filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING));
+        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+
+        // grâce aux setters, je mets à jour mon utilisateur 
+        // et lui attribue ses nouvelles valeurs
+        $user->setFirstname($firstname);
+        $user->setLastname($lastname);
+        $user->setEmail($email);
+        $user->setCity($city);
+        $user->setCountry($country);
+        $user->setRole($role);
+
+        // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
+        $product->save();
+        
+        // redirection vers la page de la liste des utilisateurs
+        $this->redirect('user-list');
+
+    }
+
+
+    /**
+     * Méthode permettant de supprimer un utilisateur de la BDD
+     *
+     * @param int $id
+     * 
+     */
+    public function delete($userId)
+    {
+        // je charge un utilisateur depuis la BDD grâce à l'ID fourni
+        $product = Product::find($userId);
+
+        // j'appelle la méthode de suppression de mon objet
+        $product->delete();
+
+        // je redirige vers la liste
+        $this->redirect('user-list');
+    }
+    
 }  

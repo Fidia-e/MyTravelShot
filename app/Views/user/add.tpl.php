@@ -1,3 +1,4 @@
+<br>
 <a href="<?= $router->generate('user-list') ?>" class="btn btn-success float-right">Retour</a>
 
 <h2>Ajouter un utilisateur</h2>
@@ -39,8 +40,9 @@
         <label for="role">Rôle</label>
         <select class="custom-select" name="role" id="role" aria-describedby="roleHelpBlock">
             <option value=" " selected disabled>Choisir un rôle</option>
-            <option value=" ">Admin</option>
-            <option value=" ">Author</option>
+            <option value="admin">Admin</option>
+            <option value="author">Author</option>
+            <option value="superadmin">Super Admin</option>
         </select>
         <small id="roleHelpBlock" class="form-text text-muted">
             Le rôle de l'utilisateur 

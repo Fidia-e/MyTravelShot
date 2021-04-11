@@ -33,16 +33,39 @@ class User extends CoreModel {
         // je déclare ma requête
         $sql = 'SELECT * FROM user';
 
-
         // je récupère une instance de la class pdoStatement
-        // je lui donne ma requête
-        $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute();
+        // et je lui donne ma requête
+        $pdoStatement = $pdo->query($sql);
 
         // je retourne le résultat de ma requête sous forme de tableau d'objets
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
 
         return $results;
+    }
+
+    /**
+     * Méthode permettant de récupérer un utilisateur avec son id
+     * 
+     * @param int $userId ID de l'utilisateur
+     * @return User
+     */
+    public static function find($userId)
+    {
+        // connexion à la BDD
+        $pdo = Database::getPDO();
+
+        // déclaration de la requête
+        $sql = 'SELECT * FROM `user` WHERE `id` =' . $userId;
+
+        // je récupère une instance de la class pdoStatement
+        // à qui je donne ma requête
+        $pdoStatement = $pdo->query($sql);
+
+        // un seul résultat sous forme d'objet => fetchObject
+        $result = $pdoStatement->fetchObject(self::class);
+
+        // retourner le résultat
+        return $result;
     }
 
 
@@ -140,14 +163,73 @@ class User extends CoreModel {
         return false;
     }
 
-    public function update(){
+
+    /**
+     * Met à jour l'utilisateur courant en BDD
+     * 
+     * @return bool $result
+     */
+    public function update()
+    {
+        // récupération de PDO
+        $pdo = Database::getPDO();
+
+        // création de la requête préparée
+        $sql = "UPDATE `user`
+                SET `firstname` = :firstname,
+                `lastname` = :lastname,
+                `email` = :email,
+                `city` = :city,
+                `country` = :country,
+                `role` = :role,
+                `updated_at` = NOW()
+                WHERE id = :id ";
+
+        // préparation de la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // remplacement des tokens par leurs vraies valeurs
+        $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':city', $this->city, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':role', $this->role, PDO::PARAM_STR);
         
-        // TODO
+        // j'exécute la requête et le stocke le résultat dans une variable
+        $result = $pdoStatement->execute();
+
+        // je renvoie le résultat de la requête
+        return $result;
     }
 
-    public static function find($id){
 
-        // TODO
+    /**
+     * Supprime l'utilisateur de la BDD
+     *
+     * @return bool
+     */
+    public function delete()
+    {
+        // récupération de PDO
+        $pdo = Database::getPDO();
+
+        // création de la requête 
+        $sql = "DELETE FROM `user`
+                WHERE id = :id ";
+  
+        // préparation de la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // remplacement des tokens par leurs vraies valeurs
+        $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        // on exécute la requête et on stocke le résultat dans une variable
+        $result = $pdoStatement->execute();
+
+        // on renvoie le résultat de la requête
+        return $result;
     }
 
 
