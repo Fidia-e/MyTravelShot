@@ -60,7 +60,7 @@ class Author extends CoreModel {
         $pdoStatement = $pdo->query($sql);
 
         // un seul résultat sous forme d'objet => fetchObject
-        $result = $pdoStatement->fetchObject('App\Models\Author');
+        $result = $pdoStatement->fetchObject(self::class);
 
         // retourner le résultat
         return $result;
@@ -118,12 +118,67 @@ class Author extends CoreModel {
         return false;
     }
 
-
-
+    /**
+     * Met à jour un auteur courant en BDD
+     * 
+     * @return bool $result
+     */
     public function update()
     {
+        // récupération de PDO
+        $pdo = Database::getPDO();
 
-        // TODO
+        // création de la requête préparée
+        $sql = "UPDATE `author`
+                SET `username` = :username,
+                `city` = :city,
+                `country` = :country,
+                `user_id` = :user_id,
+                `updated_at` = NOW()
+                WHERE id = :id ";
+
+        // préparation de la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // remplacement des tokens par leurs vraies valeurs
+        $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':city', $this->city, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        
+        // j'exécute la requête et le stocke le résultat dans une variable
+        $result = $pdoStatement->execute();
+
+        // je renvoie le résultat de la requête
+        return $result;
+    }
+
+    /**
+     * Supprime l'auteur de la BDD
+     *
+     * @return bool
+     */
+    public function delete()
+    {
+        // récupération de PDO
+        $pdo = Database::getPDO();
+
+        // création de la requête 
+        $sql = "DELETE FROM `author`
+                WHERE id = :id ";
+  
+        // préparation de la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // remplacement des tokens par leurs vraies valeurs
+        $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        // on exécute la requête et on stocke le résultat dans une variable
+        $result = $pdoStatement->execute();
+
+        // on renvoie le résultat de la requête
+        return $result;
     }
 
 

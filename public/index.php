@@ -77,12 +77,6 @@ $router->map(
     'shot-list'
 );
 
-$router->map(
-    'GET',
-    '/shot/modifier/[i:id]',
-    'ShotController::edit',
-    'shot-edit'
-);
 
 $router->map(
     'GET',
@@ -98,6 +92,27 @@ $router->map(
     'shot-create'
 );
 
+$router->map(
+    'GET',
+    '/shot/modifier/[i:id]',
+    'ShotController::edit',
+    'shot-edit'
+);
+
+$router->map(
+    'POST',
+    '/shot/modifier/[i:id]',
+    'ShotController::update',
+    'shot-update'
+);
+
+$router->map(
+    'GET',
+    '/shot/[i:id]/supprimer',
+    'ShotController::delete',
+    'shot-delete'
+);
+
 
 /* ---------------------------------- CRUD Authors ------------------------------------*/
 
@@ -108,12 +123,6 @@ $router->map(
     'author-list'
 );
 
-$router->map(
-    'GET',
-    '/auteurs/modifier/[i:id]',
-    'AuthorController::edit',
-    'author-edit'
-);
 
 $router->map(
     'GET',
@@ -127,6 +136,27 @@ $router->map(
     '/auteurs/ajouter',
     'AuthorController::create',
     'author-create'
+);
+
+$router->map(
+    'GET',
+    '/auteurs/modifier/[i:id]',
+    'AuthorController::edit',
+    'author-edit'
+);
+
+$router->map(
+    'POST',
+    '/auteurs/modifier/[i:id]',
+    'AuthorController::update',
+    'author-update'
+);
+
+$router->map(
+    'GET',
+    '/auteurs/[i:id]/supprimer',
+    'AuthorController::delete',
+    'author-delete'
 );
 
 /* ----------------------------------- CRUD Users ------------------------------------*/

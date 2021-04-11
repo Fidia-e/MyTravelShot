@@ -6,10 +6,8 @@ use App\Models\User;
 
 class UserController extends CoreController {
 
-
     /**
      * Page listant les utilisateurs
-     *
      */
     public function list()
     {
@@ -38,7 +36,6 @@ class UserController extends CoreController {
 
     /**
      * Méthode permettant d'ajouter un utilisateur en BDD
-     *
      */
     public function create()
     {
@@ -154,14 +151,29 @@ class UserController extends CoreController {
         }
     }
 
+    /**
+     * Affiche la page d'édition d'un utilisateur
+     * 
+     * @param int $id
+     */
+    public function edit($id)
+    {
+        // récupération du utilisateur lié à l'ID présent dans l'URL
+        $user = User::find($id);
+
+        // envoi de l'utilisateur chargé à la vue
+        $this->show('user/edit', $viewVars);
+    }
 
     /**
      * Méthode permettant de modifier un utilisateur
+     * 
+     * @param int $id
      */
-    public function update($userId)
+    public function update($id)
     {
-        // récupération du produit lié à l'ID présent dans l'URL
-        $user = User::find($userId);
+        // récupération de l'utilisateur lié à l'ID présent dans l'URL
+        $user = User::find($id);
 
         // récupération des champs du formulaire
         $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
@@ -188,20 +200,19 @@ class UserController extends CoreController {
 
     }
 
-
     /**
      * Méthode permettant de supprimer un utilisateur de la BDD
      *
      * @param int $id
      * 
      */
-    public function delete($userId)
+    public function delete($id)
     {
         // je charge un utilisateur depuis la BDD grâce à l'ID fourni
-        $product = Product::find($userId);
+        $user = User::find($id);
 
         // j'appelle la méthode de suppression de mon objet
-        $product->delete();
+        $user->delete();
 
         // je redirige vers la liste
         $this->redirect('user-list');

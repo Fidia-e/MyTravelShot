@@ -46,16 +46,16 @@ class User extends CoreModel {
     /**
      * Méthode permettant de récupérer un utilisateur avec son id
      * 
-     * @param int $userId ID de l'utilisateur
+     * @param int $id ID de l'utilisateur
      * @return User
      */
-    public static function find($userId)
+    public static function find($id)
     {
         // connexion à la BDD
         $pdo = Database::getPDO();
 
         // déclaration de la requête
-        $sql = 'SELECT * FROM `user` WHERE `id` =' . $userId;
+        $sql = 'SELECT * FROM `user` WHERE `id` =' . $id;
 
         // je récupère une instance de la class pdoStatement
         // à qui je donne ma requête
