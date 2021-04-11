@@ -47,7 +47,9 @@ class User extends CoreModel {
 
 
     /**
+     * Méthode permettant de trouver un utilisateur par son email
      * 
+     * @return User // je vais récupérer un objet de mon instrance User
      */
     public static function findByEmail($email)
     {
@@ -77,23 +79,43 @@ class User extends CoreModel {
     }
 
 
+    /**
+     * Méthode permettant d'ajouter un utilisateur à la BDD
+     *
+     */
     public function insert()
     {
        
-        // Appel de notre interprète SQL : PDO
+        // appel de notre interprète SQL : PDO
         $pdo = Database::getPDO();
 
-        // On définit notre requête avec des tokens/mots remplaçant nos valeurs. On indique ainsi à MySQL à quoi doit ressembler la requête, peu importe nos valeurs.
-        // @copyright 2020 Nicolas
-        $sql = "INSERT INTO app_user (`email`, `password`, `firstname`, `lastname`, `role`, `status`) 
-        VALUES (:email, :password, :firstname, :lastname, :role, :status)";
+        // je définie ma requête avec des tokens/mots remplaçant mes valeurs
+        // j'indique ainsi à MySQL à quoi doit ressembler la requête peu importe les valeurs
+        // c'est ce qu'on appelle des requêtes préparées
+        $sql = "INSERT INTO user (
+            `firstname`, 
+            `lastname`, 
+            `email`, 
+            `password`, 
+            `city`, 
+            `country`, 
+            `role`
+            ) 
+        VALUES (
+            :firstname, 
+            :lastname, 
+            :email, 
+            :password, 
+            :city, 
+            :country, 
+            :role
+            )";
 
-        // On prépare la requête
+        // je prépare la requête
         $pdoStatement = $pdo->prepare($sql);
 
-        // on remplace les tokens par leur vraie valeur
+        // on remplace les 'tokens' par leur vraie valeur
         // on peut ajouter une seconde sécurité pour forcer le type de la donnée (bindValue)
-
         $pdoStatement->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
         $pdoStatement->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
         $pdoStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
@@ -102,18 +124,30 @@ class User extends CoreModel {
         $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
         $pdoStatement->bindValue(':role', $this->role, PDO::PARAM_STR);
 
-        // Execution de la requête ! Execute renvoie true si la requête fonctionne
+        // j'exécute la requête
         $result = $pdoStatement->execute();
-        // Si ma requête fonctionne
+
+        // si ma requête fonctionne
         if($result) {
-            // Je mets à jour l'ID de mon objet avec le dernier ID inséré en BDD.
+            // je mets à jour l'ID de mon objet avec le dernier ID inséré en BDD
             $this->id = $pdo->lastInsertId();
-            // On retourne pour indiquer que la requête s'est bien passée
+            // et retourne pour indiquer que la requête s'est bien passée
             return true;
         }
 
-        // Si le code arrive jusqu'ici, c'est que la requête ne s'est pas bien passée. On renvoie false.
+        // si le code arrive jusqu'ici, c'est que la requête ne s'est pas bien passée
+        // on renvoie donc 'false'
         return false;
+    }
+
+    public function update(){
+        
+        // TODO
+    }
+
+    public static function find($id){
+
+        // TODO
     }
 
 

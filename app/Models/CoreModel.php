@@ -6,9 +6,9 @@ namespace App\Models;
 // création de ma class modèle 
 // elle ne représente aucune une entité en BDD
 // elle sert de modèles pour les autres class (entités)
-// elle ne sera jamais instanciéé mais uniquement étendue
+// elle ne sera jamais instanciéé mais uniquement étendue (car abstract)
 
-class CoreModel
+abstract class CoreModel
 {
     protected $id;
     protected $created_at;
@@ -39,9 +39,11 @@ class CoreModel
     }
 
     /**
-     * Méthode permettant de sauvegarde en BDD, n'importe quel model.
-     * Si l'objet a un ID de défini, c'est qu'il existe déjà. Donc je dois mettre à jour son entrée en BDD.
-     * Si l'objet n'a pas encore d'ID, il n'existe pas dans la BDD. Je dois donc l'insérer.
+     * Méthode permettant de sauvegarde en BDD, n'importe quel model
+     * si l'objet a un ID de défini, c'est qu'il existe déjà
+     * -> donc je dois mettre à jour son entrée en BDD
+     * si l'objet n'a pas encore d'ID, il n'existe pas dans la BDD
+     * -> je dois donc l'insérer
      */
     public function save()
     {
@@ -52,4 +54,12 @@ class CoreModel
             return $this->update();
         }
     }
+
+    // avec le mot-clé abstract on peut venir définir des méthodes qui devront obligatoirement 
+    // être dans les méthodes enfant de cette classe
+    // pour que ma méthode save() fonctionne 
+    abstract protected function insert();
+    abstract protected function update();
+    abstract protected static function find($id);
+    abstract protected static function findAll();
 }

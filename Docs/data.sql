@@ -170,14 +170,26 @@ INSERT INTO `author` (`id`, `username`, `city`, `country`, `user_id`, `created_a
 -----------------------------------------------------------------------------------------------------
 --------------------------------         table `USER`         ---------------------------------------
 -----------------------------------------------------------------------------------------------------
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (1, 'François', 'Pignon', 'pignon@gmail.com', '', 'Kaamelott', 'Andalousie', 'user', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (2, 'Ronald', 'McDonald', 'mcdonald@gmail.com', '', 'Avalon', 'Avalon', 'user', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (3, 'James', 'Bond', 'bond@gmail.com', '', 'Byzance', 'Calédonie', 'user', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (4, 'Jacquouille', 'La Fripouille', 'jacquouille@gmail.com', '', 'Cornouailles', 'Kaamelott', 'admin', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (5, 'Anakin', 'Skywalker', 'skywalker@gmail.com', '', 'Gaule', 'Irlande', 'user', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (6, 'Brice', 'De Nice', 'brice@gmail.com', '', 'Lac Sacré', 'Judée', 'user', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (7, 'Capitaine', 'Haddock', 'haddock@gmail.com', '', 'Orcanie', 'Ecosse', 'admin', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (8, 'Charlie', 'Brown', 'charlie@gmail.com', '', 'Colline de Silbury', 'Rome', 'user', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (9, 'Bernard', 'Morin', 'morin@gmail.com', '', 'Tintagel', 'Ygerne', 'user', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (10, 'Indiana', 'Jones', 'indiana@gmail.com', '', 'Carmélide', 'Bretagne', 'user', '2021-03-31 11:00:00', NULL);
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (11, 'Fidia', 'Elb', 'fidia@gmail.com', '', 'Paris', 'France', 'admin', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (1, 'François', 'Pignon', 'pignon@gmail.com', '$2y$10$Q0M.4GRtZUztfGTJEq.Orecl/GYKhcCcYFblTdDKRhHqKl9msA.YC', 'Kaamelott', 'Andalousie', 'author', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (2, 'Ronald', 'McDonald', 'mcdonald@gmail.com', '$2y$10$fKdMvv4oG0owbLahq8vwRu4xmnII9rxil4x6l10v4nmTnG9vqkEGu', 'Avalon', 'Avalon', 'author', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (3, 'James', 'Bond', 'bond@gmail.com', '$2y$10$vPH9kEVYEPTpEXT4NK7VxeMRyqEBnxjoJlR4HSfuTKX6S3jXIACCu', 'Byzance', 'Calédonie', 'author', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (4, 'Jacquouille', 'La Fripouille', 'jacquouille@gmail.com', '$2y$10$P7T6ROCUv.xGMjCnK1xu4u8nKfk2FCK0sQhYg3ViGryzot1AuXSc6', 'Cornouailles', 'Kaamelott', 'admin', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (5, 'Anakin', 'Skywalker', 'skywalker@gmail.com', '$2y$10$8UuWlkxtbLeef8PLTPJ1/u8ICFeBtNDkOSCxG8qcYy.LKmDdXrFly', 'Gaule', 'Irlande', 'author', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (6, 'Brice', 'De Nice', 'brice@gmail.com', '$2y$10$kAGZI//bnU6PB82VZROaeezKRfAwR.y4J7iRBP0Q331Vw2iLxR3HS', 'Lac Sacré', 'Judée', 'author', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (7, 'Capitaine', 'Haddock', 'haddock@gmail.com', '$2y$10$iCY5p8vtDQePQoe.KDlXe.0B1MlZFjgJYarAoQVd4q0uGu5QjZ.VO', 'Orcanie', 'Ecosse', 'admin', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (8, 'Charlie', 'Brown', 'charlie@gmail.com', '$2y$10$qEgl1nn.9R.gRs6QLxi6neK7p62QTmH7ic/j.wlJvjHtgflcVXhb2', 'Colline de Silbury', 'Rome', 'author', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (9, 'Bernard', 'Morin', 'morin@gmail.com', '$2y$10$RZRUGpdRrsbFgK2Rm7yULOUACDgigF1oJfBCymSZvRsQ.QQBe2o66', 'Tintagel', 'Ygerne', 'author', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (10, 'Indiana', 'Jones', 'indiana@gmail.com', '$2y$10$qG7Et2Bte89okCMljYxRv.pXFTr9JAjjZDZ4vdFArBHnGercW6GNC', 'Carmélide', 'Bretagne', 'author', '2021-03-31 11:00:00', NULL);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (11, 'Fidia', 'Elb', 'fidia@gmail.com', '$2y$10$eooDdyj.KNBWbO3ygyta4.2z0EjGLqHj4HKOiVElfT6mrYW.514t6', 'Paris', 'France', 'admin', '2021-03-31 11:00:00', NULL);
+
+1   pignon
+2   donald
+3   bond
+4   jacquouille
+5   sky
+6   denice
+7   cap
+8   brown
+9   bernard
+10  jones
+11  fidia

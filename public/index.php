@@ -28,7 +28,7 @@ $router->map(
     'main-home'
 );
 
-/* ------------------------------------- Auteurs ----------------------------------------*/
+/* ----------------------------- Auteurs et leurs photos --------------------------------*/
 
 $router->map(
     'GET',
@@ -45,7 +45,7 @@ $router->map(
 );
 
 
-/* ----------------------------------- Back Office -------------------------------------*/
+/* -------------------------- Connexion et authentification ----------------------------*/
 
 $router->map(
     'GET',
@@ -56,102 +56,123 @@ $router->map(
 
 $router->map(
     'POST',
-    '/login/authenticate',
+    '/login',
     'AdminController::authenticate',
     'admin-authenticate'
 );
 
-/* ------------------------------------- Shots ---------------------------------------*/
+$router->map(
+    'GET',
+    '/logout',
+    'AdminController::logout',
+    'admin-logout'
+);
+
+/* ----------------------------------- CRUD Shots -------------------------------------*/
 
 $router->map(
     'GET',
-    'admin/shot/list',
+    '/shot/list',
     'ShotController::list',
     'shot-list'
 );
 
 $router->map(
     'GET',
-    'admin/shot/modifier/[i:id]',
+    '/shot/modifier/[i:id]',
     'ShotController::edit',
     'shot-edit'
 );
 
 $router->map(
     'GET',
-    'admin/shot/ajouter',
+    '/shot/ajouter',
     'ShotController::add',
     'shot-add'
 );
 
 $router->map(
     'POST',
-    'admin/shot/ajouter',
+    '/shot/ajouter',
     'ShotController::create',
     'shot-create'
 );
 
 
-/* ------------------------------------- Authors ---------------------------------------*/
+/* ---------------------------------- CRUD Authors ------------------------------------*/
 
 $router->map(
     'GET',
-    'admin/auteurs/list',
+    '/auteurs/list',
     'AuthorController::list',
     'author-list'
 );
 
 $router->map(
     'GET',
-    'admin/auteurs/modifier/[i:id]',
+    '/auteurs/modifier/[i:id]',
     'AuthorController::edit',
     'author-edit'
 );
 
 $router->map(
     'GET',
-    'admin/auteurs/ajouter',
+    '/auteurs/ajouter',
     'AuthorController::add',
     'author-add'
 );
 
 $router->map(
     'POST',
-    'admin/auteurs/ajouter',
+    '/auteurs/ajouter',
     'AuthorController::create',
     'author-create'
 );
 
-/* -------------------------------------- Users ---------------------------------------*/
+/* ----------------------------------- CRUD Users ------------------------------------*/
 
 $router->map(
     'GET',
-    'admin/utilisateurs',
+    '/utilisateurs',
     'UserController::list',
     'user-list'
 );
 
-$router->map(
-    'GET',
-    'admin/utilisateurs/modifier/[i:id]',
-    'UserController::edit',
-    'user-edit'
-);
 
 $router->map(
     'GET',
-    'admin/utilisateurs/ajouter',
+    '/utilisateurs/ajouter',
     'UserController::add',
     'user-add'
 );
 
 $router->map(
     'POST',
-    'admin/utilisateurs/ajouter',
+    '/utilisateurs/ajouter',
     'UserController::create',
     'user-create'
 );
 
+$router->map(
+    'GET',
+    '/utilisateurs/modifier/[i:id]',
+    'UserController::edit',
+    'user-edit'
+);
+
+$router->map(
+    'POST',
+    '/utilisateurs/modifier/[i:id]',
+    'UserController::update',
+    'user-update'
+);
+
+$router->map(
+    'GET',
+    '/utilisateurs/[i:id]/supprimer',
+    'UserController::delete',
+    'user-delete'
+);
 
 
 /* ---------------------------------------------------------------------------------------
@@ -166,7 +187,7 @@ $match = $router->match();
 // et la méthode à appeler si les routes ne matchent pas
 $dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404');
 
-// je viens préciser le namespace pour tous mes controllers
+// je viens préciser le namespace pour tous mes controllers du dessus
 $dispatcher->setControllersNamespace('App\Controllers');
 
 // je définie les arguments que j'envoie à mon controller

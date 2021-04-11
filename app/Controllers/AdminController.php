@@ -22,11 +22,11 @@ class AdminController extends CoreController {
      */
     public function authenticate()
     {
-        // Récupération des informations du formulaire
+        // récupération des informations du formulaire
         $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
         $password = filter_input(INPUT_POST, 'password');
         
-        // Vérifier que l'utilsateur avec cette adresse existe
+        // je vérifie que l'utilsateur avec cette adresse existe
         $user = User::findByEmail($email);
 
         // Si l'utilisateur existe, on va vérifier son mot de passe
@@ -38,24 +38,20 @@ class AdminController extends CoreController {
                 // si le mdp correspond, on stocke le user dans une session courante
                 $_SESSION['currentUser'] = $user;
 
-
-                dd('coucou');
-                // et je redirige vers le BO
+                // et je redirige vers la liste des auteurs dans le BO
                 $this->redirect('author-list');
 
-                // sinon je lui envoie un message 
+                // sinon je lui envoie un message d'erreur
             } else {
-                dd('coucou 1');
-                echo "Les identifiants ne sont pas bons !";
+
+                echo "Le mot de passe n'est pas bon !";
             }
-            
         } 
         // Sinon on affiche une message d'erreur
         else {
-            dd('coucou 2');
+
             echo "L'email n'existe pas !";
         }
-
     }
 
     /**
@@ -67,7 +63,7 @@ class AdminController extends CoreController {
         // je retire l'entrée currentUser du tableau $_SESSION
         unset($_SESSION['currentUser']);
         // je redirige
-        $this->redirect('main-home');
+        $this->redirect($baseUri . 'admin-login');
     }
 
     /**
@@ -101,7 +97,7 @@ class AdminController extends CoreController {
         // $this->checkAuthorization(['admin']);
 
         // Génération d'un token aléatoire 
-        $token = $this->generateCsrfToken();
+        // $token = $this->generateCsrfToken();
 
         $this->show('user/add', ['token' => $token]);
     }

@@ -43,11 +43,6 @@ class Shot extends CoreModel {
     }
 
 
-
-    /* ---------------------------------------------------------------------------------------
-    ----------------------------------------- ADMIN ------------------------------------------
-    -----------------------------------------------------------------------------------------*/
-
     /**
      * Methode me permettant de récuperer toutes les photos en fonction de son auteur
      *
@@ -81,6 +76,21 @@ class Shot extends CoreModel {
         return $results;
     }
 
+
+    public static function find($id)
+    {
+        // TODO
+    }
+
+    public function insert()
+    {
+        // TODO
+    }
+
+    public function update()
+    {
+        // TODO
+    }
 
 
     /**

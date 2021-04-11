@@ -68,6 +68,18 @@ class Author extends CoreModel {
         return $result;
     }
 
+    public function insert()
+    {
+
+        // TODO
+    }
+
+    public function update()
+    {
+
+        // TODO
+    }
+
 
 
     /**

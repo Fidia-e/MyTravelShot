@@ -37,7 +37,7 @@
               <li class="active lien"><a href="<?= $router->generate('main-home') ?>"><i class="fa fa-camera sr-icons"></i> Galerie</a></li>
               <li class=" lien"><a href="<?= $router->generate('author-browse') ?>"><i class="fa fa-pencil sr-icons"></i> Par auteur</a></li>
               <li class=" lien"><a href="<?= $router->generate('admin-login') ?>"><i class="fa fa-user sr-icons"></i> Back Office</a></li>
-              <li><a href="contact.html"><i class="fa fa-phone-square sr-icons"></i> Contact</a></li>
+              <li class=" lien"><a href="<?+ $router->generate('admin-logout') ?>"><i class="fa fa-user sr-icons"></i> Déconnexion</a></li>
             </ul>
          </div>
      </div>
