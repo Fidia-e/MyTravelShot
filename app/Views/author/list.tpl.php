@@ -1,3 +1,4 @@
+<div class="container my-4">
 <br>
 <a href="<?= $router->generate('author-add') ?>" class="btn btn-success float-right">Ajouter</a>
 <h2>Liste des auteurs</h2>

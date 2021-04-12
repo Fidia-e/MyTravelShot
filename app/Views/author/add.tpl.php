@@ -1,3 +1,4 @@
+<div class="container my-4">
 <br>
 <a href="<?= $router->generate('author-list') ?>" class="btn btn-success float-right">Retour</a>
 
