@@ -29,14 +29,6 @@
         <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe de l'utilisateur">
     </div>  
     <div class="form-group">
-        <label for="city">Ville</label>
-        <input value="<?= (isset($inputValues['city'])) ? $inputValues['city']: '' ?>" type="text" class="form-control" name="city" id="city" placeholder="Ville de l'utilisateur">
-    </div>
-    <div class="form-group">
-        <label for="country">Pays</label>
-        <input value="<?= (isset($inputValues['country'])) ? $inputValues['country']: '' ?>" type="text" class="form-control" name="country" id="country" placeholder="Pays de l'utilisateur">
-    </div>  
-    <div class="form-group">
         <label for="role">Rôle</label>
         <select class="custom-select" name="role" id="role" aria-describedby="roleHelpBlock">
             <option value=" " selected disabled>Choisir un rôle</option>

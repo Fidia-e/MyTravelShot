@@ -9,7 +9,7 @@ use PDO;
 // class de mon entité `Shot` étendue du CoreModel
 class Shot extends CoreModel {
 
-    // Je déclare mes propriétés
+    // je déclare mes propriétés
     private $title;
     private $picture;
     private $description;

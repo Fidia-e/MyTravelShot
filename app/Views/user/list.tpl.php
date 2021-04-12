@@ -8,8 +8,6 @@
             <th scope="col">Prénom</th>
             <th scope="col">Nom</th>
             <th scope="col">Email</th>
-            <th scope="col">Ville</th>
-            <th scope="col">Pays</th>
             <th scope="col">Rôle</th>
         </tr>
     </thead>
@@ -20,8 +18,6 @@
             <td><?= $user->getFirstname() ?></td>
             <td><?= $user->getLastname() ?></td>
             <td><?= $user->getEmail() ?></td>
-            <td><?= $user->getCity() ?></td>
-            <td><?= $user->getCountry() ?></td>
             <td><?= $user->getRole() ?></td>
             <td class="text-right">
                 <a href="#" class="btn btn-sm btn-warning">

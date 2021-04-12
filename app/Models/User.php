@@ -14,8 +14,6 @@ class User extends CoreModel {
     private $lastname;
     private $email;
     private $password;
-    private $city;
-    private $country;
     private $role;
 
 
@@ -120,8 +118,6 @@ class User extends CoreModel {
             `lastname`, 
             `email`, 
             `password`, 
-            `city`, 
-            `country`, 
             `role`
             ) 
         VALUES (
@@ -129,8 +125,6 @@ class User extends CoreModel {
             :lastname, 
             :email, 
             :password, 
-            :city, 
-            :country, 
             :role
             )";
 
@@ -143,8 +137,6 @@ class User extends CoreModel {
         $pdoStatement->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
         $pdoStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
         $pdoStatement->bindValue(':password', $this->password, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':city', $this->city, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
         $pdoStatement->bindValue(':role', $this->role, PDO::PARAM_STR);
 
         // j'exécute la requête
@@ -179,8 +171,6 @@ class User extends CoreModel {
                 SET `firstname` = :firstname,
                 `lastname` = :lastname,
                 `email` = :email,
-                `city` = :city,
-                `country` = :country,
                 `role` = :role,
                 `updated_at` = NOW()
                 WHERE id = :id ";
@@ -193,8 +183,6 @@ class User extends CoreModel {
         $pdoStatement->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
         $pdoStatement->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
         $pdoStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':city', $this->city, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
         $pdoStatement->bindValue(':role', $this->role, PDO::PARAM_STR);
         
         // j'exécute la requête et le stocke le résultat dans une variable
@@ -310,46 +298,6 @@ class User extends CoreModel {
     public function setPassword($password)
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of city
-     */ 
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set the value of city
-     *
-     * @return  self
-     */ 
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of country
-     */ 
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set the value of country
-     *
-     * @return  self
-     */ 
-    public function setCountry($country)
-    {
-        $this->country = $country;
 
         return $this;
     }

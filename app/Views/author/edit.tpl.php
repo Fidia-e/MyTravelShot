@@ -2,7 +2,7 @@
 <a href="<?= $router->generate('author-list') ?>" class="btn btn-success float-right">Retour</a>
 <h2>Modification d'un auteur</h2>
 
-<form action="#" method="POST" class="mt-5">
+<form action="<?= $router->generate('author-update', ['id' => $author->getId()]) ?>" method="POST" class="mt-5">
     <input type="hidden" name="token" value="#">
 
     <div class="form-group">

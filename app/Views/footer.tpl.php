@@ -1,3 +1,4 @@
+</div> <!-- Ferme la div "container my-4" -->
 <footer class="home-page">
      <div class="container text-muted text-center">
        <div class="row">

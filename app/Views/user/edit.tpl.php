@@ -18,14 +18,6 @@
         <input type="text" class="form-control" value="<?= $user->getEmail() ?>" name="email" id="email" placeholder="Email de l'utilisateur">
     </div>
     <div class="form-group">
-        <label for="name">Ville</label>
-        <input type="text" class="form-control" value="<?= $user->getCity() ?>" name="city" id="city" placeholder="Ville de l'utilisateur">
-    </div>
-    <div class="form-group">
-        <label for="name">Pays</label>
-        <input type="text" class="form-control" value="<?= $user->getCountry() ?>" name="country" id="country" placeholder="Pays de l'utilisateur">
-    </div>
-    <div class="form-group">
         <label for="role">Rôle</label>
         <select class="custom-select" name="role" id="role" aria-describedby="roleHelpBlock">
             <option value=" " selected disabled>Choisir un rôle</option>

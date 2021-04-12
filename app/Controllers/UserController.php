@@ -45,8 +45,6 @@ class UserController extends CoreController {
         $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
         $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
         $password = filter_input(INPUT_POST, 'password');
-        $city = trim(filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING));
-        $country = trim(filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING));
         $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
         $token = filter_input(INPUT_POST, 'token');
 
@@ -80,23 +78,13 @@ class UserController extends CoreController {
         $errorList[] = 'Le mot de passe est vide.';
         }
 
-        // si la ville n'est pas renseignée
-        if (empty($city)) {
-        $errorList[] = 'La ville est vide.';
-        }
-
-        // si le pays n'est pas renseigné
-        if (empty($country)) {
-        $errorList[] = 'Le pays est vide.';
-        }
-
         // si le rôle n'est pas précisé
         if(empty($role)) {
             $errorList[] = 'Le rôle est vide.';
         }
 
         // si le rôle correspond à la liste des rôles demandés
-        if($role != 'admin' && $role != 'author') {
+        if($role != 'admin' && $role != 'author' && $role != 'superadmin') {
             $errorList[] = "Le rôle n'existe pas";
         }
 
@@ -112,8 +100,6 @@ class UserController extends CoreController {
             $user->setLastname($lastname);
             $user->setEmail($email);
             $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
-            $user->setCity($city);
-            $user->setCountry($country);
             $user->setRole($role);
 
             // j'appelle la méthode permettant de sauvegarder l'utilisateur en BDD
@@ -142,8 +128,6 @@ class UserController extends CoreController {
                     'firstname' => filter_input(INPUT_POST, 'firstname'),
                     'lastname' => filter_input(INPUT_POST, 'lastname'),
                     'email' => filter_input(INPUT_POST, 'email'),
-                    'city' => filter_input(INPUT_POST, 'city'),
-                    'country' => filter_input(INPUT_POST, 'country'),
                 ],
             ];
 
@@ -179,8 +163,6 @@ class UserController extends CoreController {
         $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
         $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
         $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
-        $city = trim(filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING));
-        $country = trim(filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING));
         $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
 
         // grâce aux setters, je mets à jour mon utilisateur 
@@ -188,8 +170,6 @@ class UserController extends CoreController {
         $user->setFirstname($firstname);
         $user->setLastname($lastname);
         $user->setEmail($email);
-        $user->setCity($city);
-        $user->setCountry($country);
         $user->setRole($role);
 
         // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
@@ -197,7 +177,6 @@ class UserController extends CoreController {
         
         // redirection vers la page de la liste des utilisateurs
         $this->redirect('user-list');
-
     }
 
     /**
