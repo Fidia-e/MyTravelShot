@@ -44,16 +44,16 @@ class Author extends CoreModel {
     /**
      * Méthode permettant de récupérer un auteur avec son id
      * 
-     * @param int $authorId ID de l'auteur
+     * @param int $id ID de l'auteur
      * @return Author
      */
-    public static function find($authorId)
+    public static function find($id)
     {
         // connexion à la BDD
         $pdo = Database::getPDO();
 
         // déclaration de la requête
-        $sql = 'SELECT * FROM `author` WHERE `id` =' . $authorId;
+        $sql = 'SELECT * FROM `author` WHERE `id` =' . $id;
 
         // je récupère une instance de la class pdoStatement
         // à qui je donne ma requête
@@ -134,7 +134,7 @@ class Author extends CoreModel {
                 `city` = :city,
                 `country` = :country,
                 `user_id` = :user_id,
-                `updated_at` = NOW()
+                `updated_at` = NOW(),
                 WHERE id = :id ";
 
         // préparation de la requête

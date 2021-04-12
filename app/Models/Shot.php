@@ -76,19 +76,146 @@ class Shot extends CoreModel {
     }
 
 
+    /**
+     * Méthode permettant de récupérer une publication par son id
+     * 
+     * @param int $id ID du shot
+     * @return Shot
+     */
     public static function find($id)
     {
-        // TODO
+        // connexion à la BDD
+        $pdo = Database::getPDO();
+
+        // déclaration de la requête
+        $sql = 'SELECT * FROM `shot` WHERE `id` =' . $id;
+
+        // je récupère une instance de la class pdoStatement
+        // à qui je donne ma requête
+        $pdoStatement = $pdo->query($sql);
+
+        // un seul résultat sous forme d'objet => fetchObject
+        $result = $pdoStatement->fetchObject(self::class);
+
+        // je retourne le résultat
+        return $result;
     }
 
+    /**
+     * Méthode permettant d'ajouter une publication à la BDD
+     *
+     */
     public function insert()
     {
-        // TODO
+       
+        // appel de notre interprète SQL : PDO
+        $pdo = Database::getPDO();
+
+        // je définie ma requête avec des tokens/mots remplaçant mes valeurs
+        // j'indique ainsi à MySQL à quoi doit ressembler la requête peu importe les valeurs
+        // c'est ce qu'on appelle des requêtes préparées
+        $sql = "INSERT INTO shot (
+            `title`, 
+            `picture`, 
+            `descrpiton`, 
+            `publication_date`,
+            `author_id`
+            ) 
+        VALUES (
+            :title, 
+            :picture, 
+            :descrpiton, 
+            NOW(),
+            :author_id
+            )";
+
+        // je prépare la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // on remplace les 'tokens' par leur vraie valeur
+        // on peut ajouter une seconde sécurité pour forcer le type de la donnée (bindValue)
+        $pdoStatement->bindValue(':title', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':picture', $this->city, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':descrpiton', $this->country, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':author_id', $this->role, PDO::PARAM_INT);
+
+        // j'exécute la requête
+        $result = $pdoStatement->execute();
+
+        // si ma requête fonctionne
+        if($result) {
+            // je mets à jour l'ID de mon objet avec le dernier ID inséré en BDD
+            $this->id = $pdo->lastInsertId();
+            // et retourne pour indiquer que la requête s'est bien passée
+            return true;
+        }
+
+        // si le code arrive jusqu'ici, c'est que la requête ne s'est pas bien passée
+        // on renvoie donc 'false'
+        return false;
     }
 
+    /**
+     * Met à jour un shot courant en BDD
+     * 
+     * @return bool $result
+     */
     public function update()
     {
-        // TODO
+        // récupération de PDO
+        $pdo = Database::getPDO();
+
+        // création de la requête préparée
+        $sql = "UPDATE `shot`
+                SET `title` = :title,
+                `picture` = :picture,
+                `description` = :description,
+                `author_id` = :author_id,
+                `updated_at` = NOW(),
+                WHERE id = :id ";
+
+        // préparation de la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // remplacement des tokens par leurs vraies valeurs
+        $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':title', $this->id, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':picture', $this->username, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':description', $this->city, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':author_id', $this->country, PDO::PARAM_INT);
+        
+        // j'exécute la requête et le stocke le résultat dans une variable
+        $result = $pdoStatement->execute();
+
+        // je renvoie le résultat de la requête
+        return $result;
+    }
+
+    /**
+     * Supprime le shot courant de la BDD
+     *
+     * @return bool
+     */
+    public function delete()
+    {
+        // récupération de PDO
+        $pdo = Database::getPDO();
+
+        // création de la requête 
+        $sql = "DELETE FROM `shot`
+                WHERE id = :id ";
+  
+        // préparation de la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // remplacement des tokens par leurs vraies valeurs
+        $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        // on exécute la requête et on stocke le résultat dans une variable
+        $result = $pdoStatement->execute();
+
+        // on renvoie le résultat de la requête
+        return $result;
     }
 
 

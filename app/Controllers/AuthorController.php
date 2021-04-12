@@ -23,8 +23,6 @@ class AuthorController extends CoreController {
         $this->show('authors', $viewVars);
     }
 
-
-
     /* ---------------------------------------------------------------------------------------
     ----------------------------------------- ADMIN ------------------------------------------
     -----------------------------------------------------------------------------------------*/
@@ -140,7 +138,7 @@ class AuthorController extends CoreController {
                 'errorList' => $errorList,
                 'inputValues' => [
                     'token' => $token,
-                    'username' => filter_input(INPUT_POST, 'firstname'),
+                    'username' => filter_input(INPUT_POST, 'username'),
                     'city' => filter_input(INPUT_POST, 'city'),
                     'country' => filter_input(INPUT_POST, 'country'),
                 ],
