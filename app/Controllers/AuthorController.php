@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Author;
+use App\Models\User;
 
 class AuthorController extends CoreController {
 
@@ -55,6 +56,7 @@ class AuthorController extends CoreController {
         // je récupère mes auteurs 
         // pour pouvoir récupérer les utilisateurs correspondants
         $datas = Author::findAll();
+        $datasUser = User::findAll();
         $viewVars = ['authors' => $datas];
 
         // génération d'un token aléatoire 

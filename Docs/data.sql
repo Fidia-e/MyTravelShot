@@ -181,15 +181,3 @@ INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, 
 INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (9, 'Bernard', 'Morin', 'morin@gmail.com', '$2y$10$RZRUGpdRrsbFgK2Rm7yULOUACDgigF1oJfBCymSZvRsQ.QQBe2o66', 'Tintagel', 'Ygerne', 'author', '2021-03-31 11:00:00', NULL);
 INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (10, 'Indiana', 'Jones', 'indiana@gmail.com', '$2y$10$qG7Et2Bte89okCMljYxRv.pXFTr9JAjjZDZ4vdFArBHnGercW6GNC', 'Carmélide', 'Bretagne', 'author', '2021-03-31 11:00:00', NULL);
 INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `city`, `country`, `role`, `created_at`, `updated_at`) VALUES (11, 'Fidia', 'Elb', 'fidia@gmail.com', '$2y$10$eooDdyj.KNBWbO3ygyta4.2z0EjGLqHj4HKOiVElfT6mrYW.514t6', 'Paris', 'France', 'admin', '2021-03-31 11:00:00', NULL);
-
-1   pignon
-2   donald
-3   bond
-4   jacquouille
-5   sky
-6   denice
-7   cap
-8   brown
-9   bernard
-10  jones
-11  fidia

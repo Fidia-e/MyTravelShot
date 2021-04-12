@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Shot;
+use App\Models\Author;
 
 class ShotController extends CoreController {
 
