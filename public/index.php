@@ -72,7 +72,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/shot/list',
+    '/shots/list',
     'ShotController::list',
     'shot-list'
 );
@@ -80,35 +80,35 @@ $router->map(
 
 $router->map(
     'GET',
-    '/shot/ajouter',
+    '/shots/ajouter',
     'ShotController::add',
     'shot-add'
 );
 
 $router->map(
     'POST',
-    '/shot/ajouter',
+    '/shots/ajouter',
     'ShotController::create',
     'shot-create'
 );
 
 $router->map(
     'GET',
-    '/shot/modifier/[i:id]',
+    '/shots/modifier/[i:id]',
     'ShotController::edit',
     'shot-edit'
 );
 
 $router->map(
     'POST',
-    '/shot/modifier/[i:id]',
+    '/shots/modifier/[i:id]',
     'ShotController::update',
     'shot-update'
 );
 
 $router->map(
     'GET',
-    '/shot/[i:id]/supprimer',
+    '/shots/[i:id]/supprimer',
     'ShotController::delete',
     'shot-delete'
 );
@@ -163,7 +163,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/utilisateurs',
+    '/utilisateurs/list',
     'UserController::list',
     'user-list'
 );

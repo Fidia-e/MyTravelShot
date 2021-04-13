@@ -33,9 +33,13 @@ class ShotController extends CoreController {
     {
         // je récupère la liste de tous mes auteurs
         $datas = Shot::findAll();
+        $datasAuthor = Author::findAll();
 
         // je les stocke dans un tableau viewVars
-        $viewVars = ['shots' => $datas];
+        $viewVars = [
+            'shots' => $datas,
+            'authors' => $datasAuthor
+        ];
 
         // j'appelle ma méthode show qui va afficher le bon template
         // à qui je passe mon tableau de données viewVars
@@ -55,17 +59,14 @@ class ShotController extends CoreController {
         $datasAuthor = Author::findAll();
         $viewVars = [
             'shots' => $datas,
-            'authors' => $datasAuthor
+            'authors' => $datasAuthor,
+            'token' => $token,
         ];
 
         // génération d'un token aléatoire 
         $token = $this->generateCsrfToken();
 
-        $this->show('shot/add', [
-                            'token' => $token, 
-                            'shots' => $datas,
-                            'authors' => $datasAuthor,
-                            ]);
+        $this->show('shot/add', $viewVars);
     }
 
     /**
@@ -162,10 +163,18 @@ class ShotController extends CoreController {
     {
         // Récupération de l'auteur lié à l'ID présent dans l'URL
         $shot = Shot::find($id);
-        // $token = $this->generateCsrfToken();
+        $datasAuthor = Author::findAll();
+
+        $viewVars = [
+            'shot' => $shot,
+            'authors' => $datasAuthor,
+            'token' => $token,
+        ];
+        
+        $token = $this->generateCsrfToken();
         
         // Envoi de l'auteur chargé à la vue
-        $this->show('shot/edit', ['shot' => $shot, 'token' => $token ]);
+        $this->show('shot/edit', $viewVars);
     }
 
     /**
@@ -181,7 +190,7 @@ class ShotController extends CoreController {
         // récupération des champs du formulaire
         $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
         $picture = trim(filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING));
-        $description = trim(filter_input(INPUT_POST, 'des$description', FILTER_SANITIZE_STRING));
+        $description = trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
         $author_id = filter_input(INPUT_POST, '$author_id', FILTER_SANITIZE_NUMBER_INT);
 
         // grâce aux setters, je mets à jour ma publication 
@@ -192,7 +201,7 @@ class ShotController extends CoreController {
         $shot->setAuthorId($author_id);
 
         // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
-        $product->save();
+        $shot->save();
         
         // redirection vers la page de la liste des publications
         $this->redirect('shot-list');

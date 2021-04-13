@@ -4,7 +4,7 @@
 <h2>Modification d'un utilisateur</h2>
 
 <form action="<?= $router->generate('user-update', ['id' => $user->getId()]) ?>" method="POST" class="mt-5">
-    <input type="hidden" name="token" value="#">
+    <input type="hidden" name="token" value="<?= $token ?>">
 
     <div class="form-group">
         <label for="name">Prénom</label>

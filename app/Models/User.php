@@ -29,7 +29,7 @@ class User extends CoreModel {
         $pdo = Database::getPDO();
 
         // je déclare ma requête
-        $sql = 'SELECT * FROM user';
+        $sql = 'SELECT * FROM `user`';
 
         // je récupère une instance de la class pdoStatement
         // et je lui donne ma requête

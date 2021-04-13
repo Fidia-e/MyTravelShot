@@ -26,14 +26,14 @@
         <input value="<?= (isset($inputValues['country'])) ? $inputValues['country']: '' ?>" type="text" class="form-control" name="country" id="country" placeholder="Pays de l'auteur">
     </div>  
     <div class="form-group">
-        <label for="role">Identifiant utilisateur</label>
-        <select class="custom-select" name="role" id="role" aria-describedby="roleHelpBlock">
+        <label for="user">Prénom utilisateur</label>
+        <select class="custom-select" name="user" id="user" aria-describedby="userHelpBlock">
             <option value="" selected disabled>Choisir un utilisateur</option>
-            <?php foreach($authors as $author): ?>
-                <option value=""><?= $author->getUserId() ?></option>
+            <?php foreach($users as $user): ?>
+                <option value=""><?= $user->getFirstname() ?></option>
             <?php endforeach; ?>
         </select>
-        <small id="roleHelpBlock" class="form-text text-muted">
+        <small id="userHelpBlock" class="form-text text-muted">
             L'utilisateur associé
         </small>
     </div>

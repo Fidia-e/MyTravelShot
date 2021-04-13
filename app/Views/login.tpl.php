@@ -1,3 +1,4 @@
+<div class="container my-4">
 <h1>Bienvenue sur le backoffice</h1>
 
 <form method="POST" action="<?= $router->generate('admin-authenticate') ?>">

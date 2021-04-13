@@ -21,12 +21,15 @@
             <td><?= $author->getCity() ?></td>
             <td><?= $author->getCountry() ?></td>
             <td><?= $author->getUserId() ?></td>
+            <?php foreach($users as $user): ?>
+                <td><?= $user->getFirstname() ?></td>
+                <td><?= $user->getLastname() ?></td>
+            <?php endforeach; ?>
             <td></td>
             <td class="text-right">
-                <a href="#" class="btn btn-sm btn-warning">
+                <a href="<?= $router->generate('author-edit', ['id' => $author->getId()]) ?>" class="btn btn-sm btn-warning">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
-                <!-- Example single danger button -->
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-danger dropdown-toggle"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -37,9 +37,12 @@ class AuthorController extends CoreController {
     {
         // je récupère la liste de tous mes auteurs
         $datas = Author::findAll();
+        $datasUser = User::findAll();
 
         // je les stocke dans un tableau viewVars
-        $viewVars = ['authors' => $datas];
+        $viewVars = ['authors' => $datas, 
+                    'users' => $datasUser
+                    ];
 
         // j'appelle ma méthode show qui va afficher le bon template
         // à qui je passe mon tableau de données viewVars
@@ -57,12 +60,16 @@ class AuthorController extends CoreController {
         // pour pouvoir récupérer les utilisateurs correspondants
         $datas = Author::findAll();
         $datasUser = User::findAll();
-        $viewVars = ['authors' => $datas];
+        $viewVars = [
+                    'authors' => $datas, 
+                    'users' => $datasUser,
+                    'token' => $token
+                ];
 
         // génération d'un token aléatoire 
         $token = $this->generateCsrfToken();
 
-        $this->show('author/add', ['token' => $token, 'authors' => $datas]);
+        $this->show('author/add', $viewVars);
     }
 
     /**
@@ -159,10 +166,17 @@ class AuthorController extends CoreController {
     {
         // Récupération de l'auteur lié à l'ID présent dans l'URL
         $author = Author::find($id);
-        // $token = $this->generateCsrfToken();
+        $datasUser = User::findAll();
+        $viewVars = [
+            'author' => $author, 
+            'users' => $datasUser,
+            'token' => $token
+        ];
         
+        $token = $this->generateCsrfToken();
+
         // Envoi de l'auteur chargé à la vue
-        $this->show('author/edit', ['author' => $author, 'token' => $token ]);
+        $this->show('author/edit', $viewVars);
     }
 
     /**
@@ -189,7 +203,7 @@ class AuthorController extends CoreController {
         $author->setUserId($user_id);
 
         // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
-        $product->save();
+        $author->save();
         
         // redirection vers la page de la liste des utilisateurs
         $this->redirect('author-list');

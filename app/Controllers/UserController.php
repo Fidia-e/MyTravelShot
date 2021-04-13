@@ -145,6 +145,8 @@ class UserController extends CoreController {
         // récupération du utilisateur lié à l'ID présent dans l'URL
         $user = User::find($id);
 
+        $viewVars = ['user' => $user];
+
         // envoi de l'utilisateur chargé à la vue
         $this->show('user/edit', $viewVars);
     }
@@ -173,7 +175,7 @@ class UserController extends CoreController {
         $user->setRole($role);
 
         // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
-        $product->save();
+        $user->save();
         
         // redirection vers la page de la liste des utilisateurs
         $this->redirect('user-list');
