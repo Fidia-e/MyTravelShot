@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="<?= $assetsBaseUri ?>images/favicon.svg" />
+    <link rel="icon" href="<?= $assetsBaseUri ?>images/favicon.ico" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <title>My Travel Shot</title>
@@ -28,21 +28,36 @@
 
 <!-- Navigation Bar -->
 <nav class="navbar navbar-fixed-top navbar-default">
-     <div class="container">
+     <div class="containerNav">
          <div class="navbar-header">
-             <h3 class="Logo">My Travel Shot</h3>
+            <a class="Logo navbar-brand" href="<?= $router->generate('main-home') ?>">My Travel Shot</a>
          </div>
          <div class="collapse navbar-collapse navbar-right" id="menu">
             <ul class="nav navbar-nav">
               <li class="active lien">
                 <a href="<?= $router->generate('main-home') ?>"><i class="fa fa-camera sr-icons"></i> Galerie </a>
               </li>
-              <li class=" lien">
+              <li class="lien">
                 <a href="<?= $router->generate('author-browse') ?>"><i class="fa fa-pencil sr-icons"></i> Par auteur </a>
               </li>
               <?php if(isset($_SESSION['currentUser'])) : ?>
-              <li class=" lien">
-                <a href="<?= $router->generate('author-list') ?>"><i class="fa fa-user sr-icons"></i> Gestion </a>
+              <li class="lien">
+                <a href="<?= $router->generate('shot-list') ?>"><i class="fa fa-cogs sr-icons"></i> Gestion des Shots </a>
+              </li>
+              <?php endif; ?>
+              <?php if(isset($_SESSION['currentUser'])) : ?>
+              <li class="lien">
+                <a href="<?= $router->generate('author-list') ?>"><i class="fa fa-cogs sr-icons"></i> Gestion des Auteurs </a>
+              </li>
+              <?php endif; ?>
+              <?php if(isset($_SESSION['currentUser'])) : ?>
+              <li class="lien">
+                <a href="<?= $router->generate('user-list') ?>"><i class="fa fa-cogs sr-icons"></i> Gestion des Utilisateurs </a>
+              </li>
+              <?php endif; ?>
+              <?php if(isset($_SESSION['currentUser'])) : ?>
+              <li class="lien">
+                <a href="#"><i class="fa fa-cogs sr-icons"></i> Profil </a>
               </li>
               <?php endif; ?>
               <?php if(empty($_SESSION['currentUser'])) : ?>
@@ -50,7 +65,7 @@
                         <a class="nav-link" href="<?= $router->generate('admin-login') ?>"><i class="fa fa-user sr-icons"></i> Connexion</a>
                     </li>
               <?php else: ?>
-              <li class=" lien">
+              <li class="lien">
                 <a href="<?= $router->generate('admin-logout') ?>"><i class="fa fa-user sr-icons"></i> Déconnexion </a>
               </li>
               <?php endif; ?>

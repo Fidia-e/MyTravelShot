@@ -25,9 +25,9 @@
     <div class="form-group">
         <label for="user">Prénom auteur</label>
         <select class="custom-select" name="user" id="user" aria-describedby="userHelpBlock">
-            <option value="" selected disabled>Choisir un utilisateur</option>
+            <option value="" selected disabled>Choisir un auteur</option>
             <?php foreach($authors as $author): ?>
-                <option value=""><?= $author->getUsername() ?></option>
+                <option value="<?= $author->getId() ?>"><?= $author->getUsername() ?></option>
             <?php endforeach; ?>
         </select>
         <small id="userHelpBlock" class="form-text text-muted">

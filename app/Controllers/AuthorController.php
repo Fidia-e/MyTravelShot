@@ -60,14 +60,16 @@ class AuthorController extends CoreController {
         // pour pouvoir récupérer les utilisateurs correspondants
         $datas = Author::findAll();
         $datasUser = User::findAll();
+
+        // génération d'un token aléatoire 
+        $token = $this->generateCsrfToken();
+        
         $viewVars = [
                     'authors' => $datas, 
                     'users' => $datasUser,
                     'token' => $token
                 ];
 
-        // génération d'un token aléatoire 
-        $token = $this->generateCsrfToken();
 
         $this->show('author/add', $viewVars);
     }
@@ -78,8 +80,12 @@ class AuthorController extends CoreController {
      */
     public function create()
     {
-
-        // récupération des valeurs des champs
+        // récupération et validation des valeurs des champs
+        // filter_input() vérifie les variables envoyées par l'utilisateur :
+            // elle renvoie :
+            // la valeur de la variable en cas de succès
+            // FALSE en cas d'échec 
+            // NULL si la variable n'est pas définie
         $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
         $city = trim(filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING));
         $country = trim(filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING));
@@ -89,10 +95,10 @@ class AuthorController extends CoreController {
         // création d'un tableau d'erreurs, vide
         $errorList = [];
 
-        // vérification de la présence du token 
-        // et de sa bonne correspondance avec la session
+        // vérification de la présence du token CSRF dans le formulaire
+        // et qu'il correspond bien à celui de la session
         if(empty($token) || $token != $_SESSION['csrfToken']){
-            $errorList[] = "Erreur CSRF !";
+            $errorList[] = "Erreur CSRF ! Bien essayé.";
         }
 
         // vérification des valeurs
@@ -195,16 +201,29 @@ class AuthorController extends CoreController {
         $country = trim(filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING));
         $user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
+        // création d'un tableau d'erreurs, vide
+        $errorList = [];
+
+        // vérification de la présence du token CSRF dans le formulaire
+        // et qu'il correspond bien à celui de la session
+        if(empty($token) || $token != $_SESSION['csrfToken']){
+            $errorList[] = "Erreur CSRF ! Bien essayé.";
+        }
+
         // grâce aux setters, je mets à jour mon auteur 
         // et lui attribue ses nouvelles valeurs
         $author->setUsername($username);
         $author->setCity($city);
         $author->setCountry($country);
         $author->setUserId($user_id);
-
+        
         // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
         $author->save();
         
+        // on efface le token de la session pour qu'il ne soit plus réutilisable
+        // on ne peut donc pas soumettre plusieurs fois le même formulaire
+        unset($_SESSION['csrfToken']);
+
         // redirection vers la page de la liste des utilisateurs
         $this->redirect('author-list');
 

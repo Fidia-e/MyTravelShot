@@ -41,7 +41,9 @@
                     </ul>
                     <h3><?= $shot->getTitle(); ?></h3>
                     <p><?= $shot->getDescription(); ?></p>
-                    <strong><p>par <?= $shot->getAuthorId(); ?></p></strong>
+                    <br>
+                    <br>
+                    <strong><p>par<br><br><?= $shot->getAuthorId(); ?></p></strong>
                   </div>
               </div>
             </div>

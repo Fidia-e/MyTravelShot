@@ -31,7 +31,6 @@ class UserController extends CoreController {
         $token = $this->generateCsrfToken();
 
         $this->show('user/add', ['token' => $token]);
-        // ne pas oublier d'ajouter le token au dessus comme 2e arg de show!!! ', ['token' => $token]'
     }
 
     /**
@@ -39,8 +38,12 @@ class UserController extends CoreController {
      */
     public function create()
     {
-
-        // récupération des valeurs des champs
+        // récupération et validation des valeurs des champs
+        // filter_input() vérifie les variables envoyées par l'utilisateur :
+            // elle renvoie :
+            // la valeur de la variable en cas de succès
+            // FALSE en cas d'échec 
+            // NULL si la variable n'est pas définie
         $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
         $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
         $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
@@ -51,10 +54,10 @@ class UserController extends CoreController {
         // création d'un tableau d'erreurs, vide
         $errorList = [];
 
-        // vérification de la présence du token 
-        // et de sa bonne correspondance avec la session
+        // vérification de la présence du token CSRF dans le formulaire
+        // et qu'il correspond bien à celui de la session
         if(empty($token) || $token != $_SESSION['csrfToken']){
-            $errorList[] = "Erreur CSRF !";
+            $errorList[] = "Erreur CSRF ! Bien essayé.";
         }
 
         // vérification des valeurs
@@ -106,7 +109,7 @@ class UserController extends CoreController {
             $result = $user->save();
             
             // si la requête a marché, alors result = true, je redirige
-            // sinon, j'ajoute un message d'erreur dans la liste.
+            // sinon, j'ajoute un message d'erreur dans la liste d'erreurs
             if($result) {
 
                 // on efface le token de la session pour qu'il ne soit plus réutilisable
@@ -120,9 +123,11 @@ class UserController extends CoreController {
 
         } else {
 
-            // j'affiche le formulaire avec les erreurs
+            // sinon, j'affiche le formulaire avec les erreurs
             $viewVars = [
                 'errorList' => $errorList,
+
+                // pour éviter à l'utilisateur de tout retaper 
                 'inputValues' => [
                     'token' => $token,
                     'firstname' => filter_input(INPUT_POST, 'firstname'),
@@ -145,7 +150,13 @@ class UserController extends CoreController {
         // récupération du utilisateur lié à l'ID présent dans l'URL
         $user = User::find($id);
 
-        $viewVars = ['user' => $user];
+        $token = $this->generateCsrfToken();
+        
+        $viewVars = [
+                'user' => $user, 
+                'token' => $token
+                ];
+
 
         // envoi de l'utilisateur chargé à la vue
         $this->show('user/edit', $viewVars);
@@ -161,11 +172,20 @@ class UserController extends CoreController {
         // récupération de l'utilisateur lié à l'ID présent dans l'URL
         $user = User::find($id);
 
-        // récupération des champs du formulaire
+        // récupération et validation des champs du formulaire
         $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
         $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
         $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
         $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+
+        // création d'un tableau d'erreurs, vide
+        $errorList = [];
+
+        // vérification de la présence du token CSRF dans le formulaire
+        // et qu'il correspond bien à celui de la session
+        if(empty($token) || $token != $_SESSION['csrfToken']){
+            $errorList[] = "Erreur CSRF ! Bien essayé.";
+        }
 
         // grâce aux setters, je mets à jour mon utilisateur 
         // et lui attribue ses nouvelles valeurs
@@ -177,6 +197,10 @@ class UserController extends CoreController {
         // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
         $user->save();
         
+        // on efface le token de la session pour qu'il ne soit plus réutilisable
+        // on ne peut donc pas soumettre plusieurs fois le même formulaire
+        unset($_SESSION['csrfToken']);
+
         // redirection vers la page de la liste des utilisateurs
         $this->redirect('user-list');
     }

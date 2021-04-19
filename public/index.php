@@ -68,11 +68,34 @@ $router->map(
     'admin-logout'
 );
 
+/* ----------------------------------- CRUD Profil ------------------------------------*/
+
+$router->map(
+    'GET',
+    '/profil',
+    'UserController::showProfil',
+    'user-showprofil'
+);
+
+$router->map(
+    'GET',
+    '/profil/modifier',
+    'UserController::editProfil',
+    'user-editprofil'
+);
+
+$router->map(
+    'POST',
+    '/profil/modifier',
+    'UserController::updateProfil',
+    'user-updateprofil',
+);
+
 /* ----------------------------------- CRUD Shots -------------------------------------*/
 
 $router->map(
     'GET',
-    '/shots/list',
+    '/shots/liste',
     'ShotController::list',
     'shot-list'
 );
@@ -118,7 +141,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/auteurs/list',
+    '/auteurs/liste',
     'AuthorController::list',
     'author-list'
 );
@@ -159,11 +182,12 @@ $router->map(
     'author-delete'
 );
 
+
 /* ----------------------------------- CRUD Users ------------------------------------*/
 
 $router->map(
     'GET',
-    '/utilisateurs/list',
+    '/utilisateurs/liste',
     'UserController::list',
     'user-list'
 );
@@ -220,7 +244,9 @@ $dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404')
 // je viens préciser le namespace pour tous mes controllers du dessus
 $dispatcher->setControllersNamespace('App\Controllers');
 
-// je définie les arguments que j'envoie à mon controller
+// je définie les arguments que j'envoie à mes controllers 
+// comme j'ai un ACL, je leur passe donc les noms des routes à vérifier
+// en leur  passant les valeurs du tableau à l'entrée 'name'
 $dispatcher->setControllersArguments(
     $match['name'],
 );

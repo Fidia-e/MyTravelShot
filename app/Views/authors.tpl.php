@@ -10,14 +10,17 @@
               <ul class="list-inline">
               <h3><?= $author->getUsername(); ?></h3>
                 <li>
-                  <h4><?= $author->getCity(); ?></h4>
+                  <h4>de la lointaine contrée de : <br><strong><?= $author->getCity(); ?></strong></h4>
                 </li>
+                <br>
                 <li>
-                  <p><?= $author->getCountry(); ?></p>
+                  <p>Pays : <strong><?= $author->getCountry(); ?></strong></p>
                 </li>
+                <br>
+                <p>Voir ses photos: </p>
                 <li>
                   <a class="gallery" href="<?= $router->generate('shot-browseByAuthor', ['author_id' => $author->getId()]) ?>" data-toggle="tooltip" data-original-title="">
-                    Voir ses photos
+                  <i class="fa fa-camera eyeAuteur"></i>
                   </a>
                 </li>
               </ul>

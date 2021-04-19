@@ -29,8 +29,8 @@
         <label for="author_id">Identifiant utilisateur</label>
         <select class="custom-select" name="author_id" id="author_id" aria-describedby="authorIdHelpBlock">
             <option value="" selected disabled>Choisir un auteur</option>
-            <?php foreach($datasAuthor as $author): ?>
-                <option value=""><?= $author->getUsername() ?></option>
+            <?php foreach($authors as $author): ?>
+                <option value="<?= $author->getId() ?>"><?= $author->getUsername() ?></option>
             <?php endforeach; ?>
         </select>
         <small id="authorIdHelpBlock" class="form-text text-muted">

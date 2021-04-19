@@ -54,17 +54,19 @@ class ShotController extends CoreController {
     public function add()
     {
         // je récupère mes auteurs 
-        // pour pouvoir récupérer les utilisateurs correspondants
+        // pour pouvoir récupérer les auteurs correspondants
         $datas = Shot::findAll();
         $datasAuthor = Author::findAll();
+
+        // génération d'un token aléatoire 
+        $token = $this->generateCsrfToken();
+
         $viewVars = [
             'shots' => $datas,
             'authors' => $datasAuthor,
             'token' => $token,
         ];
 
-        // génération d'un token aléatoire 
-        $token = $this->generateCsrfToken();
 
         $this->show('shot/add', $viewVars);
     }
@@ -75,8 +77,12 @@ class ShotController extends CoreController {
      */
     public function create()
     {
-
-        // récupération des valeurs des champs
+        // récupération et validation des valeurs des champs
+        // filter_input() vérifie les variables envoyées par l'utilisateur :
+            // elle renvoie :
+            // la valeur de la variable en cas de succès
+            // FALSE en cas d'échec 
+            // NULL si la variable n'est pas définie
         $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
         $picture = trim(filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING));
         $description = trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
@@ -87,9 +93,9 @@ class ShotController extends CoreController {
         $errorList = [];
 
         // vérification de la présence du token 
-        // et de sa bonne correspondance avec la session
+        // et de sa bonne correspondance avec celui de la session
         if(empty($token) || $token != $_SESSION['csrfToken']){
-            $errorList[] = "Erreur CSRF !";
+            $errorList[] = "Erreur CSRF ! Bien essayé.";
         }
 
         // vérification des valeurs
@@ -164,6 +170,7 @@ class ShotController extends CoreController {
         // Récupération de l'auteur lié à l'ID présent dans l'URL
         $shot = Shot::find($id);
         $datasAuthor = Author::findAll();
+        $token = $this->generateCsrfToken();
 
         $viewVars = [
             'shot' => $shot,
@@ -171,7 +178,6 @@ class ShotController extends CoreController {
             'token' => $token,
         ];
         
-        $token = $this->generateCsrfToken();
         
         // Envoi de l'auteur chargé à la vue
         $this->show('shot/edit', $viewVars);
@@ -193,15 +199,28 @@ class ShotController extends CoreController {
         $description = trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
         $author_id = filter_input(INPUT_POST, '$author_id', FILTER_SANITIZE_NUMBER_INT);
 
+        // création d'un tableau d'erreurs, vide
+        $errorList = [];
+
+        // vérification de la présence du token 
+        // et de sa bonne correspondance avec celui de la session
+        if(empty($token) || $token != $_SESSION['csrfToken']){
+            $errorList[] = "Erreur CSRF ! Bien essayé.";
+        }
+
         // grâce aux setters, je mets à jour ma publication 
         // et lui attribue ses nouvelles valeurs
         $shot->setTitle($title);
         $shot->setPicture($picture);
-        $shot->setDescritpion($description);
+        $shot->setDescription($description);
         $shot->setAuthorId($author_id);
-
+        
         // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
         $shot->save();
+
+        // on efface le token de la session pour qu'il ne soit plus réutilisable
+        // on ne peut donc pas soumettre plusieurs fois le même formulaire
+        unset($_SESSION['csrfToken']);
         
         // redirection vers la page de la liste des publications
         $this->redirect('shot-list');

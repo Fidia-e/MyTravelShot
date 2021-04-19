@@ -30,7 +30,7 @@
         <select class="custom-select" name="user" id="user" aria-describedby="userHelpBlock">
             <option value="" selected disabled>Choisir un utilisateur</option>
             <?php foreach($users as $user): ?>
-                <option value=""><?= $user->getFirstname() ?></option>
+                <option value="<?= $user->getId() ?>"><?= $user->getFirstname() ?></option>
             <?php endforeach; ?>
         </select>
         <small id="userHelpBlock" class="form-text text-muted">

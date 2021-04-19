@@ -32,6 +32,6 @@ class ErrorController extends CoreController {
         $this->show('error/err403');
 
         // j'empêche l'execution du code qui est à la suite
-        exit();
+        die();
     }
 }

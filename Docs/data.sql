@@ -157,7 +157,7 @@ INSERT INTO `shot` (`id`, `title`, `picture`, `description`, `publication_date`,
 --------------------------------         table `AUTHOR`        --------------------------------------
 -----------------------------------------------------------------------------------------------------
 INSERT INTO `author` (`id`, `username`, `city`, `country`, `user_id`, `created_at`, `updated_at`) VALUES (1, 'Arthur', 'Kaamelott', 'Andalousie', 2, '2021-03-31 11:00:00', NULL);
-INSERT INTO `author` (`id`, `username`, `city`, `country`, `user_id`, `created_at`, `updated_at`) VALUES (2, 'Perceval', 'Avalon', 'Avalon', 1, '2021-03-31 11:00:00', NULL);
+INSERT INTO `author` (`id`, `username`, `city`, `country`, `user_id`, `created_at`, `updated_at`) VALUES (2, 'Perceval', 'Avalon', 'Fort fort lointain', 1, '2021-03-31 11:00:00', NULL);
 INSERT INTO `author` (`id`, `username`, `city`, `country`, `user_id`, `created_at`, `updated_at`) VALUES (3, 'Karadoc', 'Byzance', 'Calédonie', 9, '2021-03-31 11:00:00', NULL);
 INSERT INTO `author` (`id`, `username`, `city`, `country`, `user_id`, `created_at`, `updated_at`) VALUES (4, 'Guenièvre', 'Cornouailles', 'Kaamelott', 4, '2021-03-31 11:00:00', NULL);
 INSERT INTO `author` (`id`, `username`, `city`, `country`, `user_id`, `created_at`, `updated_at`) VALUES (5, 'Bohort', 'Gaule', 'Irlande', 8, '2021-03-31 11:00:00', NULL);

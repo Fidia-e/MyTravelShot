@@ -53,6 +53,20 @@ body{
 	color: #777;
 }
 
+.containerNav{
+	width: 97%;
+	padding-left: 1em;
+}
+
+.container404 {
+	padding-left: 25em;
+	width: 50%;
+}
+
+i.eyeAuteur {
+	font-size: 2em;
+}
+
 @media(min-width: 768px){
 .navbar .nav li a{
 	color: #777;

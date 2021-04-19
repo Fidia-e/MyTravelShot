@@ -295,6 +295,18 @@ class Shot extends CoreModel {
     {
         return $this->author_id;
     }
+
+    /**
+     * Set the value of author_id
+     *
+     * @return  self
+     */ 
+    public function setAuthorId($author_id)
+    {
+        $this->author_id = $author_id;
+
+        return $this;
+    }
 }
 
 
