@@ -39,10 +39,15 @@ class AuthorController extends CoreController {
         $datas = Author::findAll();
         $datasUser = User::findAll();
 
+        // génération d'un token aléatoire 
+        $token = $this->generateCsrfToken();
+
         // je les stocke dans un tableau viewVars
-        $viewVars = ['authors' => $datas, 
-                    'users' => $datasUser
-                    ];
+        $viewVars = [
+                'authors' => $datas, 
+                'users' => $datasUser,
+                'token' =>$token,
+                ];
 
         // j'appelle ma méthode show qui va afficher le bon template
         // à qui je passe mon tableau de données viewVars
@@ -131,7 +136,7 @@ class AuthorController extends CoreController {
             $author->setUserId($user_id);
 
             // j'appelle la méthode permettant de sauvegarder l'utilisateur en BDD
-            $result = $user->save();
+            $result = $author->save();
             
             // si la requête a marché, alors result = true, je redirige
             // sinon, j'ajoute un message d'erreur dans la liste.
@@ -170,18 +175,19 @@ class AuthorController extends CoreController {
      */
     public function edit($id)
     {
-        // Récupération de l'auteur lié à l'ID présent dans l'URL
+        // récupération de l'auteur lié à l'ID présent dans l'URL
         $author = Author::find($id);
         $datasUser = User::findAll();
+        $token = $this->generateCsrfToken();
+
         $viewVars = [
             'author' => $author, 
             'users' => $datasUser,
             'token' => $token
         ];
         
-        $token = $this->generateCsrfToken();
 
-        // Envoi de l'auteur chargé à la vue
+        // envoi de l'auteur chargé à la vue
         $this->show('author/edit', $viewVars);
     }
 

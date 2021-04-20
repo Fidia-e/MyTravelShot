@@ -19,18 +19,14 @@
         <input type="text" class="form-control" value="<?= $shot->getDescription() ?>" name="description" id="description" placeholder="Description de la publication">
     </div>
     <div class="form-group">
-        <label for="authorId">Identifiant auteur</label>
-        <input type="text" class="form-control" value="<?= $shot->getAuthorId() ?>" name="authorId" id="authorId" placeholder="Identifiant de l'auteur">
-    </div>
-    <div class="form-group">
-        <label for="user">Prénom auteur</label>
-        <select class="custom-select" name="user" id="user" aria-describedby="userHelpBlock">
+        <label for="author_id">Identifiant utilisateur</label>
+        <select class="custom-select" name="author_id" id="author_id" aria-describedby="authorIdHelpBlock">
             <option value="" selected disabled>Choisir un auteur</option>
             <?php foreach($authors as $author): ?>
                 <option value="<?= $author->getId() ?>"><?= $author->getUsername() ?></option>
             <?php endforeach; ?>
         </select>
-        <small id="userHelpBlock" class="form-text text-muted">
+        <small id="authorIdHelpBlock" class="form-text text-muted">
             L'auteur associé
         </small>
     </div>

@@ -44,7 +44,6 @@ $router->map(
     'shot-browseByAuthor'
 );
 
-
 /* -------------------------- Connexion et authentification ----------------------------*/
 
 $router->map(
@@ -100,7 +99,6 @@ $router->map(
     'shot-list'
 );
 
-
 $router->map(
     'GET',
     '/shots/ajouter',
@@ -136,7 +134,6 @@ $router->map(
     'shot-delete'
 );
 
-
 /* ---------------------------------- CRUD Authors ------------------------------------*/
 
 $router->map(
@@ -145,7 +142,6 @@ $router->map(
     'AuthorController::list',
     'author-list'
 );
-
 
 $router->map(
     'GET',
@@ -181,7 +177,6 @@ $router->map(
     'AuthorController::delete',
     'author-delete'
 );
-
 
 /* ----------------------------------- CRUD Users ------------------------------------*/
 
@@ -233,23 +228,27 @@ $router->map(
 --------------------------------------- DISPATCH -----------------------------------------
 -----------------------------------------------------------------------------------------*/
 
-// On demande à AltoRouter de comparer les routes 
+// on demande à AltoRouter de comparer les routes 
 // grâce à sa méthode match()
 $match = $router->match();
 
 // j'instancie le dispatcher à qui je donne le résultat de match
-// et la méthode à appeler si les routes ne matchent pas
+// et la méthode 'err404' à appeler si les routes ne matchent pas
 $dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404');
 
-// je viens préciser le namespace pour tous mes controllers du dessus
+// je viens préciser le namespace pour tous mes controllers
 $dispatcher->setControllersNamespace('App\Controllers');
 
 // je définie les arguments que j'envoie à mes controllers 
-// comme j'ai un ACL, je leur passe donc les noms des routes à vérifier
-// en leur  passant les valeurs du tableau à l'entrée 'name'
-$dispatcher->setControllersArguments(
-    $match['name'],
-);
+// comme j'ai un ACL, je dois leur donner le nom des routes à vérifier
+// en leur passant la valeur du tableau $match à l'entrée 'name' (nom de la route)
+// et je conditionne pour ne pas avoir d'erreur s'il ne trouve pas de route
+// exemple pour une 404, route non trouvée
+if ($match) {
+    $dispatcher->setControllersArguments(
+        $match['name'],
+    );
+};
 
 // je lance le dispatch qui va exécuter la méthode du controller
 $dispatcher->dispatch();

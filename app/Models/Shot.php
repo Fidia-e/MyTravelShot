@@ -117,14 +117,14 @@ class Shot extends CoreModel {
         $sql = "INSERT INTO shot (
             `title`, 
             `picture`, 
-            `descrpiton`, 
+            `description`, 
             `publication_date`,
             `author_id`
             ) 
         VALUES (
             :title, 
             :picture, 
-            :descrpiton, 
+            :description, 
             NOW(),
             :author_id
             )";
@@ -134,10 +134,10 @@ class Shot extends CoreModel {
 
         // on remplace les 'tokens' par leur vraie valeur
         // on peut ajouter une seconde sécurité pour forcer le type de la donnée (bindValue)
-        $pdoStatement->bindValue(':title', $this->firstname, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':picture', $this->city, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':descrpiton', $this->country, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':author_id', $this->role, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':title', $this->title, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':picture', $this->picture, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':description', $this->description, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':author_id', $this->author_id, PDO::PARAM_INT);
 
         // j'exécute la requête
         $result = $pdoStatement->execute();
@@ -171,7 +171,7 @@ class Shot extends CoreModel {
                 `picture` = :picture,
                 `description` = :description,
                 `author_id` = :author_id,
-                `updated_at` = NOW(),
+                `updated_at` = NOW()
                 WHERE id = :id ";
 
         // préparation de la requête
@@ -179,10 +179,10 @@ class Shot extends CoreModel {
 
         // remplacement des tokens par leurs vraies valeurs
         $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
-        $pdoStatement->bindValue(':title', $this->id, PDO::PARAM_INT);
-        $pdoStatement->bindValue(':picture', $this->username, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':description', $this->city, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':author_id', $this->country, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':title', $this->title, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':picture', $this->picture, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':description', $this->description, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':author_id', $this->author_id, PDO::PARAM_INT);
         
         // j'exécute la requête et le stocke le résultat dans une variable
         $result = $pdoStatement->execute();

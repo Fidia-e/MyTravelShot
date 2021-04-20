@@ -21,10 +21,7 @@
                 <td><?= $author->getCity() ?></td>
                 <td><?= $author->getCountry() ?></td>
                 <td><?= $author->getUserId() ?></td>
-                <?php foreach($users as $user): ?>
-                    <td><?= $user->getFirstname() ?></td>
-                    <td><?= $user->getLastname() ?></td>
-                <?php endforeach; ?>
+
                 <td></td>
                 <td class="text-right">
                     <a href="<?= $router->generate('author-edit', ['id' => $author->getId()]) ?>" class="btn btn-sm btn-warning">

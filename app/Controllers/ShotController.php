@@ -35,10 +35,14 @@ class ShotController extends CoreController {
         $datas = Shot::findAll();
         $datasAuthor = Author::findAll();
 
+        // génération d'un token aléatoire 
+        $token = $this->generateCsrfToken();
+
         // je les stocke dans un tableau viewVars
         $viewVars = [
             'shots' => $datas,
-            'authors' => $datasAuthor
+            'authors' => $datasAuthor,
+            'token' => $token,
         ];
 
         // j'appelle ma méthode show qui va afficher le bon template
@@ -119,7 +123,7 @@ class ShotController extends CoreController {
         if(empty($errorList)) {
             
             // j'instancie une nouvelle publication
-            $shot = new Author;
+            $shot = new Shot;
 
             // je définie les différentes propriétés de la publication
             $shot->setTitle($title);
@@ -128,7 +132,7 @@ class ShotController extends CoreController {
             $shot->setAuthorId($author_id);
 
             // j'appelle la méthode permettant de sauvegarder la publication en BDD
-            $result = $user->save();
+            $result = $shot->save();
             
             // si la requête a marché, alors result = true, je redirige
             // sinon, j'ajoute un message d'erreur dans la liste.
@@ -167,7 +171,7 @@ class ShotController extends CoreController {
      */
     public function edit($id)
     {
-        // Récupération de l'auteur lié à l'ID présent dans l'URL
+        // récupération de l'auteur lié à l'ID présent dans l'URL
         $shot = Shot::find($id);
         $datasAuthor = Author::findAll();
         $token = $this->generateCsrfToken();
@@ -197,7 +201,8 @@ class ShotController extends CoreController {
         $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
         $picture = trim(filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING));
         $description = trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
-        $author_id = filter_input(INPUT_POST, '$author_id', FILTER_SANITIZE_NUMBER_INT);
+        $author_id = filter_input(INPUT_POST, 'author_id', FILTER_SANITIZE_NUMBER_INT);
+        $token = filter_input(INPUT_POST, 'token');
 
         // création d'un tableau d'erreurs, vide
         $errorList = [];
@@ -208,22 +213,39 @@ class ShotController extends CoreController {
             $errorList[] = "Erreur CSRF ! Bien essayé.";
         }
 
-        // grâce aux setters, je mets à jour ma publication 
-        // et lui attribue ses nouvelles valeurs
-        $shot->setTitle($title);
-        $shot->setPicture($picture);
-        $shot->setDescription($description);
-        $shot->setAuthorId($author_id);
-        
-        // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
-        $shot->save();
+        if (empty($errorList)) {
 
-        // on efface le token de la session pour qu'il ne soit plus réutilisable
-        // on ne peut donc pas soumettre plusieurs fois le même formulaire
-        unset($_SESSION['csrfToken']);
+            // grâce aux setters, je mets à jour ma publication
+            // et lui attribue ses nouvelles valeurs
+            $shot->setTitle($title);
+            $shot->setPicture($picture);
+            $shot->setDescription($description);
+            $shot->setAuthorId($author_id);
         
-        // redirection vers la page de la liste des publications
-        $this->redirect('shot-list');
+            // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
+            $shot->save();
+
+            // on efface le token de la session pour qu'il ne soit plus réutilisable
+            // on ne peut donc pas soumettre plusieurs fois le même formulaire
+            unset($_SESSION['csrfToken']);
+        
+            // redirection vers la page de la liste des publications
+            $this->redirect('shot-list');
+
+        } else {
+            // j'affiche le formulaire avec les erreurs
+            $viewVars = [
+                'errorList' => $errorList,
+                'inputValues' => [
+                    'token' => $token,
+                    'title' => filter_input(INPUT_POST, 'title'),
+                    'picture' => filter_input(INPUT_POST, 'picture'),
+                    'description' => filter_input(INPUT_POST, 'description'),
+                ],
+            ];
+
+            $this->show('shot/edit', $viewVars);
+        }
 
     }
 

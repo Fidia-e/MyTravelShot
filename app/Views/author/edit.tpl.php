@@ -19,18 +19,14 @@
         <input type="text" class="form-control" value="<?= $author->getCountry() ?>" name="country" id="country" placeholder="Pays de l'auteur">
     </div>
     <div class="form-group">
-        <label for="userId">Prénom utilisateur</label>
-        <input type="text" class="form-control" value="<?= $author->getUserId() ?>" name="userId" id="userId" placeholder="Pays de l'auteur">
-    </div>
-    <div class="form-group">
-        <label for="user">Prénom utilisateur</label>
-        <select class="custom-select" name="user" id="user" aria-describedby="userHelpBlock">
+        <label for="user_id">Prénom utilisateur</label>
+        <select class="custom-select" name="user_id" id="user_id" aria-describedby="userIdHelpBlock">
             <option value="" selected disabled>Choisir un utilisateur</option>
             <?php foreach($users as $user): ?>
                 <option value="<?= $user->getId() ?>"><?= $user->getFirstname() ?></option>
             <?php endforeach; ?>
         </select>
-        <small id="userHelpBlock" class="form-text text-muted">
+        <small id="userIdHelpBlock" class="form-text text-muted">
             L'utilisateur associé
         </small>
     </div>

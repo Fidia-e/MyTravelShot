@@ -17,41 +17,64 @@ abstract class CoreController {
     // restent accessibles 
    public function __construct($route = false)
    {
-    // ACL Access Control List :
-    // définition du tableau contenant les routes 
+    // définition du tableau (ACL) contenant les routes 
     // qui sont resteintes pour certains rôles
     // Comment ça fonctionne :
     //      1- si la route n'est pas dans la liste, alors elle est accessible à tous (hors connexion)
     //      2- [] => il faut être connecté pour y avoir accès
     //      3- les rôles listés dans le tableaux ont accès à la route correspondante
-      $acl = [
+        $accessControlList = [
            
-         'shot-list' => [],
-         'shot-add' => [],
-         'shot-create' => [],
-         'shot-edit' => [],
-         'shot-update' => [],
-         'shot-delete' => [],
+            'shot-list' => [],
+            'shot-add' => [],
+            'shot-create' => [],
+            'shot-edit' => [],
+            'shot-update' => [],
+            'shot-delete' => [],
 
-         'author-list' => [],
-         'author-add' => ['admin', 'superadmin'],
-         'author-create' => ['admin', 'superadmin'],
-         'author-edit' => ['admin', 'superadmin'],
-         'author-update' => ['admin', 'superadmin'],
-         'author-delete' => ['admin', 'superadmin'],
+            'author-list' => [],
+            'author-add' => ['admin', 'superadmin'],
+            'author-create' => ['admin', 'superadmin'],
+            'author-edit' => ['admin', 'superadmin'],
+            'author-update' => ['admin', 'superadmin'],
+            'author-delete' => ['admin', 'superadmin'],
 
-         'user-list' => [],
-         'user-add' => ['superadmin'],
-         'user-create' => ['superadmin'],
-         'user-edit' => ['superadmin'],
-         'user-update' => ['superadmin'],
-         'user-delete' => ['superadmin'],
+            'user-list' => [],
+            'user-add' => ['superadmin'],
+            'user-create' => ['superadmin'],
+            'user-edit' => ['superadmin'],
+            'user-update' => ['superadmin'],
+            'user-delete' => ['superadmin'],
 
-         'user-showprofil' => [],
-         'user-editprofil' => [],
-         'user-updateprofil' => [],
+            'user-showprofil' => [],
+            'user-editprofil' => [],
+            'user-updateprofil' => [],
+        ];
 
-     ];
+
+        // fonction de vérification des routes restreintes
+
+
+
+
+        // création d'un  tableau contenant les routes potentiellement dangereuses 
+        // qui seront protégées par le token CSRF
+        $csrfRoutes = [
+            'post' => [
+                'shot-create',
+                'shot-update',
+                'author-create',
+                'author-update',
+                'user-create',
+                'user-update',
+                'user-updateprofil',
+            ],
+            'get' => [
+                'shot-delete',
+                'author-delete',
+                'user-delete',
+            ]
+        ];
    }
 
     /**
@@ -84,7 +107,7 @@ abstract class CoreController {
 		// à la place de $viewName, je mets le chemin dynamisé des templates
 		require __DIR__ . '/../views/header.tpl.php';
 		require __DIR__ . '/../views/' . $viewName . '.tpl.php';
-		// require __DIR__ . '/../views/footer.tpl.php';
+		require __DIR__ . '/../views/footer.tpl.php';
 	}
 
     /**
@@ -99,9 +122,10 @@ abstract class CoreController {
 
     /**
      * Méthode permettant de générer un token aléatoire pour prévenir les attaques CSRF
-	 * ce token sera stocké en session et renvoyé afin d'être placé dans les formulaires / liens à protéger
+	 * ce token sera stocké en session et renvoyé afin d'être placé 
+     * dans les formulaires et routes à protéger
      * le principe étant de comparer le token de la session avec celui du formulaire
-     *
+     * 
      * @return string
      */
 	 protected function generateCsrfToken()
@@ -119,20 +143,21 @@ abstract class CoreController {
 	}
 
 	/**
-     * Méthode vérifiant que le token passé correspond bien à celui stocké en session
-     *
+     * Méthode vérifiant que le token passé dans le formulaire 
+     * correspond bien à celui stocké en session
+     * en fonction de la méthode effectuée
      */
      protected function checkCsrfToken($method)
     {
         if($method == 'post') {
-            // on récupère le token en POST
+            // je récupère le token du formulaire en POST
             $token = filter_input(INPUT_POST, 'token');
         } else if ($method == 'get') {
-            // on récupère le token en GET
+            // je récupère le token du formulaire en GET
             $token = filter_input(INPUT_GET, 'token');
         }
 
-        // Récupération du token de session
+        // je récupère le token de la session
         $sessionToken = $_SESSION['csrfToken'];
 
         // ce que je vérifie : 

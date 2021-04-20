@@ -14,8 +14,14 @@ class UserController extends CoreController {
         // récupération de tous les users grâce à la méthode statique "findAll()"
         $users = User::findAll();
 
+        // génération d'un token aléatoire 
+        $token = $this->generateCsrfToken();
+
         // je fais un tableau de données à passer à ma vue.
-        $viewVars = ['users' => $users];
+        $viewVars = [
+            'users' => $users,
+            'token' => $token,
+        ];
 
         $this->show('user/list', $viewVars);
     }

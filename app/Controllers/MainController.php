@@ -14,7 +14,6 @@ class MainController extends CoreController {
     { 
         $datas = Shot::findAll();
         $viewVars = ['shots' => $datas];
-        // dd($datas);
 
         $this->show('home', $viewVars);
     }

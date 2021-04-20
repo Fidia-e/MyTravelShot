@@ -1,4 +1,4 @@
-<br>
+
 <?php if(isset($_SESSION['currentUser'])) : ?>
     <p class="display-4">
       <h1> Bonjour <?php echo $_SESSION['currentUser']->getFirstname() ?> !</h1>

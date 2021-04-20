@@ -26,6 +26,7 @@
                     </a>
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-danger dropdown-toggle"
+                            role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>

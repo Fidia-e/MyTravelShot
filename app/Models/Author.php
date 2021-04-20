@@ -29,7 +29,6 @@ class Author extends CoreModel {
         // je déclare ma requête
         $sql = 'SELECT * FROM `author`';
 
-
         // je récupère une instance de la class pdoStatement
         // je lui donne ma requête
         $pdoStatement = $pdo->query($sql);
@@ -79,14 +78,14 @@ class Author extends CoreModel {
         // je définie ma requête avec des tokens/mots remplaçant mes valeurs
         // j'indique ainsi à MySQL à quoi doit ressembler la requête peu importe les valeurs
         // c'est ce qu'on appelle des requêtes préparées
-        $sql = "INSERT INTO author (
+        $sql = "INSERT INTO `author` (
             `username`, 
             `city`, 
             `country`, 
             `user_id`
             ) 
         VALUES (
-            :firstname, 
+            :username, 
             :city, 
             :country, 
             :user_id
@@ -97,10 +96,10 @@ class Author extends CoreModel {
 
         // on remplace les 'tokens' par leur vraie valeur
         // on peut ajouter une seconde sécurité pour forcer le type de la donnée (bindValue)
-        $pdoStatement->bindValue(':username', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':username', $this->username, PDO::PARAM_STR);
         $pdoStatement->bindValue(':city', $this->city, PDO::PARAM_STR);
         $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
-        $pdoStatement->bindValue(':user_id', $this->role, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
 
         // j'exécute la requête
         $result = $pdoStatement->execute();
@@ -134,7 +133,7 @@ class Author extends CoreModel {
                 `city` = :city,
                 `country` = :country,
                 `user_id` = :user_id,
-                `updated_at` = NOW(),
+                `updated_at` = NOW()
                 WHERE id = :id ";
 
         // préparation de la requête
