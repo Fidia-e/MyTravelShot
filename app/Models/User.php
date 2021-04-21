@@ -196,6 +196,39 @@ class User extends CoreModel {
         return $result;
     }
 
+    /**
+     * Méthode permettant de mettre à jour les informations du user courant
+     */
+    public function profilUpdate()
+    {
+        // récupération de PDO
+        $pdo = Database::getPDO();
+
+        // création de la requête préparée
+        $sql = "UPDATE `user`
+                SET `firstname` = :firstname,
+                `lastname` = :lastname,
+                `email` = :email,
+                `updated_at` = NOW()
+                WHERE id = :id ";
+
+        // préparation de la requête
+        $pdoStatement = $pdo->prepare($sql);
+
+        // remplacement des tokens par leurs vraies valeurs
+        $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $pdoStatement->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
+
+        
+        // j'exécute la requête et le stocke le résultat dans une variable
+        $result = $pdoStatement->execute();
+
+        // je renvoie le résultat de la requête
+        return $result;
+    }
+
 
     /**
      * Supprime l'utilisateur de la BDD

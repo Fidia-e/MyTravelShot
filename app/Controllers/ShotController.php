@@ -8,7 +8,7 @@ use App\Models\Author;
 class ShotController extends CoreController {
 
     /**
-     * Affiche la photos en fonction des auteurs
+     * Affiche les photos de chaque auteur
      */
     
     public function browseByAuthor($author_id)
@@ -19,7 +19,7 @@ class ShotController extends CoreController {
         if($datas){
             $this->show('authors_shots', $viewVars);
         } else{
-            $this->show('error/no-result');
+            $this->show('error/no-results');
         }
     }
 

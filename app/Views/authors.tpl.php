@@ -17,7 +17,7 @@
                   <p>Pays : <strong><?= $author->getCountry(); ?></strong></p>
                 </li>
                 <br>
-                <p>Voir ses photos: </p>
+                <strong><p>Voir ses photos: </p></strong>
                 <li>
                   <a class="gallery" href="<?= $router->generate('shot-browseByAuthor', ['author_id' => $author->getId()]) ?>" data-toggle="tooltip" data-original-title="">
                   <i class="fa fa-camera eyeAuteur"></i>

@@ -64,7 +64,8 @@ body{
 }
 
 i.eyeAuteur {
-	font-size: 2em;
+	font-size: 2.5em;
+	color:rgba(212, 199, 137, 0.7);
 }
 
 @media(min-width: 768px){

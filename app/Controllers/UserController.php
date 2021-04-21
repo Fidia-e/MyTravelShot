@@ -228,5 +228,80 @@ class UserController extends CoreController {
         // je redirige vers la liste
         $this->redirect('user-list');
     }
+
+    /* ---------------------------------------------------------------------------------------
+    ----------------------------------------- PROFIL -----------------------------------------
+    -----------------------------------------------------------------------------------------*/
+
+    /**
+     * Méthode permettant d'afficher les informations du user courant
+     */
+    public function showProfil()
+    {
+        $this->show('user/profil');
+    }
+
+    /**
+     * Méthode permettant d'afficher le formulaire d'édition
+     * des informations du user courant
+     */
+    public function editProfil()
+    {
+        // récupération du utilisateur courant stocké en session
+        $user = $_SESSION['currentUser'];
+        //dd($user);
+
+        // génération d'un token CSRF
+        $token = $this->generateCsrfToken();
+        
+        // définition du tableau contenant les informations 
+        // à envoyer à la vue
+        $viewVars = [
+                'user' => $user, 
+                'token' => $token
+                ];
+
+        // appel de la méthode show() qui affiche la vue et les données passées
+        $this->show('user/profil-edit', $viewVars);
+    }
     
+    /**
+     * Méthode permettant de mettre à jour les informations du user courant
+     */
+    public function updateProfil()
+    {
+        // récupération du utilisateur courant stocké en session
+        $user = $_SESSION['currentUser'];
+
+        // récupération et validation des champs du formulaire
+        $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
+        $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
+        $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
+
+        // création d'un tableau d'erreurs, vide
+        $errorList = [];
+
+        // vérification de la présence du token CSRF dans le formulaire
+        // et qu'il correspond bien à celui de la session
+        if(empty($token) || $token != $_SESSION['csrfToken']){
+            $errorList[] = "Erreur CSRF ! Bien essayé.";
+        }
+
+        // grâce aux setters, je mets à jour mon utilisateur 
+        // et lui attribue ses nouvelles valeurs
+        $user->setFirstname($firstname);
+        $user->setLastname($lastname);
+        $user->setEmail($email);
+
+        // appel de la méthode save() qui va sauvegarder les nouvelles infos en BDD
+        $user->save();
+        
+        // on efface le token de la session pour qu'il ne soit plus réutilisable
+        // on ne peut donc pas soumettre plusieurs fois le même formulaire
+        unset($_SESSION['csrfToken']);
+
+        // redirection vers la page de la liste des utilisateurs
+        $this->redirect('user-showprofil');
+
+    }
 }  

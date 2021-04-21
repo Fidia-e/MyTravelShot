@@ -61,7 +61,7 @@
               <?php endif; ?>
               <?php if(isset($_SESSION['currentUser'])) : ?>
               <li class="lien">
-                <a href="#"><i class="fa fa-edit sr-icons"></i> Profil </a>
+                <a href="<?= $router->generate('user-showprofil') ?>"><i class="fa fa-edit sr-icons"></i> Profil </a>
               </li>
               <?php endif; ?>
               <?php if(empty($_SESSION['currentUser'])) : ?>
