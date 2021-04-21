@@ -1,9 +1,11 @@
 <div class="container my-4">
 <br>
 <a href="<?= $router->generate('user-showprofil') ?>" class="btn btn-success float-right">Retour</a>
-<h2>Modification des informations personnelles</h2>
-
-<form action="<?= $router->generate('user-update', [$_SESSION['currentUser']->getId()]) ?>" method="POST" class="mt-5">
+<br>
+<br>
+<h2>Modification de mess informations personnelles</h2>
+<br>
+<form action="<?= $router->generate('user-updateprofil', [$_SESSION['currentUser']->getId()]) ?>" method="POST" class="mt-5">
     <input type="hidden" name="token" value="<?= $token ?>">
 
     <div class="form-group">

@@ -1,7 +1,6 @@
 <div class="container my-4">
 <br>
 <br>
-<br>
 <h1>Mes informations personnelles</h1>
 <br>
 <br>
