@@ -15,6 +15,7 @@ class User extends CoreModel {
     private $email;
     private $password;
     private $role;
+    private $author_id;
 
 
     /**
@@ -37,7 +38,7 @@ class User extends CoreModel {
 
         // je retourne le résultat de ma requête sous forme de tableau d'objets
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
-
+        
         return $results;
     }
 
@@ -172,6 +173,7 @@ class User extends CoreModel {
                 `lastname` = :lastname,
                 `email` = :email,
                 `role` = :role,
+                `author_id` = :author_id,
                 `updated_at` = NOW()
                 WHERE id = :id ";
 
@@ -184,6 +186,8 @@ class User extends CoreModel {
         $pdoStatement->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
         $pdoStatement->bindValue(':email', $this->email, PDO::PARAM_STR);
         $pdoStatement->bindValue(':role', $this->role, PDO::PARAM_STR);
+        $pdoStatement->bindValue(':author_id', $this->author_id, PDO::PARAM_INT);
+
         
         // j'exécute la requête et le stocke le résultat dans une variable
         $result = $pdoStatement->execute();
@@ -318,6 +322,26 @@ class User extends CoreModel {
     public function setRole($role)
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of author_id
+     */ 
+    public function getAuthorId()
+    {
+        return $this->author_id;
+    }
+
+    /**
+     * Set the value of author_id
+     *
+     * @return  self
+     */ 
+    public function setAuthorId($author_id)
+    {
+        $this->author_id = $author_id;
 
         return $this;
     }

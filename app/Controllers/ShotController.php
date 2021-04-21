@@ -15,9 +15,12 @@ class ShotController extends CoreController {
     { 
         $datas = Shot::findByAuthorId($author_id);
         $viewVars = ['shotByAuthor' => $datas];
-        // dd($datas);
 
-        $this->show('authors_shots', $viewVars);
+        if($datas){
+            $this->show('authors_shots', $viewVars);
+        } else{
+            $this->show('error/no-result');
+        }
     }
 
     /* ---------------------------------------------------------------------------------------
@@ -33,7 +36,11 @@ class ShotController extends CoreController {
     {
         // je récupère la liste de tous mes auteurs
         $datas = Shot::findAll();
-        $datasAuthor = Author::findAll();
+
+        $datasAuthor = [];
+        foreach($datas as $shot){
+            $datasAuthor[$shot->getId()] = Author::find($shot->getAuthorId());
+        }
 
         // génération d'un token aléatoire 
         $token = $this->generateCsrfToken();

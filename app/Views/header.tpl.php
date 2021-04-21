@@ -10,12 +10,16 @@
 
   	<!-- Bootstrap core css -->
   	<link rel="stylesheet" type="text/css" href="<?= $assetsBaseUri ?>bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
   	<!-- Bootstrap core css -->
   	<link rel="stylesheet" type="text/css" href="<?= $assetsBaseUri ?>css/style.css">
   	<!-- Magnific-popup css -->
   	<link rel="stylesheet" type="text/css" href="<?= $assetsBaseUri ?>css/magnific-popup.css">
   	<!-- Font Awesome icons -->
   	<link rel="stylesheet" type="text/css" href="<?= $assetsBaseUri ?>font-awesome/css/font-awesome.min.css">
+
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,7 +42,7 @@
                 <a href="<?= $router->generate('main-home') ?>"><i class="fa fa-camera sr-icons"></i> Galerie </a>
               </li>
               <li class="lien">
-                <a href="<?= $router->generate('author-browse') ?>"><i class="fa fa-pencil sr-icons"></i> Par auteur </a>
+                <a href="<?= $router->generate('author-browse') ?>"><i class="fa fa-camera sr-icons"></i> Par auteur </a>
               </li>
               <?php if(isset($_SESSION['currentUser'])) : ?>
               <li class="lien">
@@ -57,7 +61,7 @@
               <?php endif; ?>
               <?php if(isset($_SESSION['currentUser'])) : ?>
               <li class="lien">
-                <a href="#"><i class="fa fa-cogs sr-icons"></i> Profil </a>
+                <a href="#"><i class="fa fa-edit sr-icons"></i> Profil </a>
               </li>
               <?php endif; ?>
               <?php if(empty($_SESSION['currentUser'])) : ?>
@@ -66,7 +70,7 @@
                     </li>
               <?php else: ?>
               <li class="lien">
-                <a href="<?= $router->generate('admin-logout') ?>"><i class="fa fa-user sr-icons"></i> Déconnexion </a>
+                <a href="<?= $router->generate('admin-logout') ?>"><i class="fa fa-sign-out sr-icons"></i> Déconnexion </a>
               </li>
               <?php endif; ?>
             </ul>

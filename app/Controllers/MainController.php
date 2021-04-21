@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Shot;
+use App\Models\Author;
 
 class MainController extends CoreController {
 
@@ -13,7 +14,16 @@ class MainController extends CoreController {
     public function home()
     { 
         $datas = Shot::findAll();
-        $viewVars = ['shots' => $datas];
+        shuffle($datas);
+        $datasAuthor = [];
+        foreach($datas as $shot){
+            $datasAuthor[$shot->getId()] = Author::find($shot->getAuthorId());
+        }
+
+        $viewVars = [
+            'shots' => $datas,
+            'authors' => $datasAuthor
+        ];
 
         $this->show('home', $viewVars);
     }

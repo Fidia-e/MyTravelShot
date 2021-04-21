@@ -9,7 +9,6 @@
             <th scope="col">Titre</th>
             <th scope="col">Photo</th>
             <th scope="col">Description</th>
-            <th scope="col">Identifiant auteur</th>
             <th scope="col">Pseudo auteur</th>
         </tr>
     </thead>
@@ -20,7 +19,7 @@
                 <td><?= $shot->getTitle() ?></td>
                 <td style="word-wrap: break-word; max-width: 400px"><?= $shot->getPicture() ?></td>
                 <td><?= $shot->getDescription() ?></td>
-                <td><?= $shot->getAuthorId() ?></td>
+                <td><?= $authors[$shot->getId()]->getUsername(); ?></td>
                 <td class="text-right">
                     <a href="<?= $router->generate('shot-edit', ['id' => $shot->getId()]) ?>" class="btn btn-sm btn-warning">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

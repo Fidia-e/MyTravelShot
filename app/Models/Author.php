@@ -52,7 +52,9 @@ class Author extends CoreModel {
         $pdo = Database::getPDO();
 
         // déclaration de la requête
-        $sql = 'SELECT * FROM `author` WHERE `id` =' . $id;
+        $sql = 'SELECT * 
+                FROM `author` 
+                WHERE `id` =' . $id;
 
         // je récupère une instance de la class pdoStatement
         // à qui je donne ma requête
@@ -60,8 +62,41 @@ class Author extends CoreModel {
 
         // un seul résultat sous forme d'objet => fetchObject
         $result = $pdoStatement->fetchObject(self::class);
-
+        
         // retourner le résultat
+        return $result;
+    }
+
+    /**
+     * Méthode permettant de récupérer les informations 
+     * de l'utilisateur associé à chaque auteur
+     */
+    public function getUserInformations()
+    {
+        // connexion à la BDD
+        $pdo = Database::getPDO();
+
+        // écriture de la requête préparée
+        $sql = "SELECT 
+                `firstname`,
+                `lastname`
+                FROM `user`
+                WHERE `author_id` = :id";
+
+        // je récupère une instance de la class pdoStatement
+        // à qui je donne ma requête
+        $pdoStatement = $pdo->prepare($sql);
+        
+        // remplacement du token :id par sa vraie valeur
+        $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+        // j'exécute la requête et stocke le résultat dans une variable
+        $result = $pdoStatement->execute();
+        //dump($result);
+        
+        // je récupère mon résultat
+        $result = $pdoStatement->fetch(PDO::FETCH_ASSOC);
+        //dump($result);
+
         return $result;
     }
 
@@ -71,7 +106,6 @@ class Author extends CoreModel {
      */
     public function insert()
     {
-       
         // appel de notre interprète SQL : PDO
         $pdo = Database::getPDO();
 
@@ -108,6 +142,11 @@ class Author extends CoreModel {
         if($result) {
             // je mets à jour l'ID de mon objet avec le dernier ID inséré en BDD
             $this->id = $pdo->lastInsertId();
+            
+            $user = User::find($this->user_id);
+            $user->setAuthorId($this->id);
+            $user->save();
+            
             // et retourne pour indiquer que la requête s'est bien passée
             return true;
         }
@@ -146,7 +185,7 @@ class Author extends CoreModel {
         $pdoStatement->bindValue(':country', $this->country, PDO::PARAM_STR);
         $pdoStatement->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
         
-        // j'exécute la requête et le stocke le résultat dans une variable
+        // j'exécute la requête et je stocke le résultat dans une variable
         $result = $pdoStatement->execute();
 
         // je renvoie le résultat de la requête

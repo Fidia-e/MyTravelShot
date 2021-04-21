@@ -58,9 +58,8 @@ class Shot extends CoreModel {
                 FROM `shot`
                 WHERE `author_id` = :author_id';
 
-
         // je récupère une instance de la class pdoStatement
-        // je lui donne ma requête
+        // je lui donne ma requête préparée
         $pdoStatement = $pdo->prepare($sql);
 
         // j'associe la valeur de :author_id à $author_id

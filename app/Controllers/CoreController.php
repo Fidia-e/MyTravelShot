@@ -57,8 +57,8 @@ abstract class CoreController {
 
 
 
-        // création d'un  tableau contenant les routes potentiellement dangereuses 
-        // qui seront protégées par le token CSRF
+        // création d'un tableau contenant les routes potentiellement dangereuses 
+        // qui seront protégées par un token CSRF
         $csrfRoutes = [
             'post' => [
                 'shot-create',
@@ -111,12 +111,14 @@ abstract class CoreController {
 	}
 
     /**
-     * Méthode permettant de rediriger l'utilisateur, dans tous les controllers.
+     * Méthode permettant de rediriger l'utilisateur, dans tous les controllers
      */
      public function redirect($route) 
     {
         global $router;
 
+        // la fonction header() renvoie une redirection au navigateur
+        // avec un type d'appel spécial "location" et un code 302 (redirection)
         header('Location: '. $router->generate($route));
     }
 

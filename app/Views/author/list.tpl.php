@@ -21,12 +21,16 @@
                 <td><?= $author->getCity() ?></td>
                 <td><?= $author->getCountry() ?></td>
                 <td><?= $author->getUserId() ?></td>
+                <td><?= $users[$author->getId()]['firstname'] . " " . $users[$author->getId()]['lastname'] ?></td>
 
                 <td></td>
                 <td class="text-right">
                     <a href="<?= $router->generate('author-edit', ['id' => $author->getId()]) ?>" class="btn btn-sm btn-warning">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </a>
+
+                    <!-- Example split danger button -->
+
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-danger dropdown-toggle"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

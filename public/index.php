@@ -1,21 +1,21 @@
 <?php
 
-// On include les dépendances Composer
+// j'include les dépendances Composer
 require __DIR__ . '/../vendor/autoload.php';
 
+// démarre une nouvelle session
 session_start();
 
 /* ---------------------------------------------------------------------------------------
 --------------------------------------- MAPPING ------------------------------------------
 -----------------------------------------------------------------------------------------*/
 
-// On instancie l'objet AltoRouter qui va mapper nos routes
+// j'instancie l'objet AltoRouter qui va mapper les routes
 $router = new AltoRouter;
 
-// je défini la base uri qui est définie dans le fichier .htaccess
+// je déclare au routeur la base uri 
+// qui est définie dans le fichier .htaccess
 $router->setBasePath($_SERVER['BASE_URI']);
-
-
 
 /* --------------------------------- LISTE DES ROUTES -----------------------------------*/
 
@@ -223,7 +223,6 @@ $router->map(
     'user-delete'
 );
 
-
 /* ---------------------------------------------------------------------------------------
 --------------------------------------- DISPATCH -----------------------------------------
 -----------------------------------------------------------------------------------------*/
@@ -243,12 +242,13 @@ $dispatcher->setControllersNamespace('App\Controllers');
 // comme j'ai un ACL, je dois leur donner le nom des routes à vérifier
 // en leur passant la valeur du tableau $match à l'entrée 'name' (nom de la route)
 // et je conditionne pour ne pas avoir d'erreur s'il ne trouve pas de route
-// exemple pour une 404, route non trouvée
-if ($match) {
+// exemple pour une route non trouvée (page 404)
+if($match) {
     $dispatcher->setControllersArguments(
         $match['name'],
     );
 };
 
-// je lance le dispatch qui va exécuter la méthode du controller
+// je lance le dispatch qui va exécuter les méthodes
+// des différents controllers appelés
 $dispatcher->dispatch();

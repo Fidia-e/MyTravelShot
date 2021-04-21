@@ -37,9 +37,12 @@ class AuthorController extends CoreController {
     {
         // je récupère la liste de tous mes auteurs
         $datas = Author::findAll();
-        $datasUser = User::findAll();
+        $datasUser = [];
+        foreach($datas as $author){
+            $datasUser[$author->getId()] = $author->getUserInformations();
+        }
 
-        // génération d'un token aléatoire 
+        // génération d'un token CSRF 
         $token = $this->generateCsrfToken();
 
         // je les stocke dans un tableau viewVars

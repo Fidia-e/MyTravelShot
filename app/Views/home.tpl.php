@@ -1,10 +1,9 @@
-
 <?php if(isset($_SESSION['currentUser'])) : ?>
     <p class="display-4">
       <h1> Bonjour <?php echo $_SESSION['currentUser']->getFirstname() ?> !</h1>
     </p>
 <?php endif; ?>
-
+<br>
 
 <div class="tab-content">
    <div id="category1" class="tab-pane active" >
@@ -43,7 +42,7 @@
                     <p><?= $shot->getDescription(); ?></p>
                     <br>
                     <br>
-                    <strong><p>par<br><br><?= $shot->getAuthorId(); ?></p></strong>
+                    <strong><p>par<br><br><?= $authors[$shot->getId()]->getUsername(); ?></p></strong>
                   </div>
               </div>
             </div>
