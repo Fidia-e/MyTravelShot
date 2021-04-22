@@ -52,7 +52,15 @@ abstract class CoreController {
         ];
 
 
-        // fonction de vérification des routes restreintes
+        // je vérifie que la route courante est dans le tableau
+        // qui liste les routes restreintes
+        if($route && array_key_exists($route, $accessControlList)) {
+
+            // je récupère les rôles autorisés par la route de l'ACL et
+            // j'appelle la fonction de vérification en lui passant les rôles en argument
+            $authorizedRoles = $accessControlList[$route];
+            $this->checkAuthorization($authorizedRoles);
+        }
 
 
 
@@ -120,6 +128,35 @@ abstract class CoreController {
         // la fonction header() renvoie une redirection au navigateur
         // avec un type d'appel spécial "location" et un code 302 (redirection)
         header('Location: '. $router->generate($route));
+    }
+
+    /**
+     * Méthode permettant de vérifier les droits d'accès à une page
+     *
+     * @param array $roles
+     */
+    public function checkAuthorization($roles = [])
+    {
+        // je vérifie que l'utilisateur est bien connecté
+        if(isset($_SESSION['currentUser'])) {
+            // je récupère l'utilisateur de la session
+            $userRole = $_SESSION['currentUser']->getRole();
+
+            // je vérifie l'une des deux conditions suivantes:
+            // si le rôle de l'utilisateur n'est pas dans le tableau de rôles ($roles) 
+            // et que la liste des rôles n'est pas vide
+            if(!in_array($userRole, $roles) && !empty($roles)){
+                
+                // j'instancie le controller d'erreurs et j'affiche la vue pour l'erreur 403
+                $errorController = new ErrorController;
+                $errorController->err403();
+            }
+
+        } else {
+            // si l'utilisateur n'est pas connecté
+            // je le redirige vers la page de connexion
+            $this->redirect('admin-login');
+        }
     }
 
     /**

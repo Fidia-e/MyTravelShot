@@ -2,6 +2,8 @@
 <br>
 <h1>Bah alors... Il semblerait que tu sois perdu?</h1>
 <br>
+<br>
+<br>
 <div class="container404">
-    <img src="<?= $assetsBaseUri ?>images/mts-404.png" alt="image404">
+    <img src="<?= $assetsBaseUri ?>images/gif-404.gif" alt="image404">
 </div>
