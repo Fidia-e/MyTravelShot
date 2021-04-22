@@ -51,7 +51,6 @@ abstract class CoreController {
             'user-updateprofil' => [],
         ];
 
-
         // je vérifie que la route courante est dans le tableau
         // qui liste les routes restreintes
         if($route && array_key_exists($route, $accessControlList)) {
@@ -61,9 +60,6 @@ abstract class CoreController {
             $authorizedRoles = $accessControlList[$route];
             $this->checkAuthorization($authorizedRoles);
         }
-
-
-
 
         // création d'un tableau contenant les routes potentiellement dangereuses 
         // qui seront protégées par un token CSRF
