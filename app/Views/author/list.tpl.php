@@ -1,7 +1,9 @@
 <div class="container my-4">
 <br>
 <a href="<?= $router->generate('author-add') ?>" class="btn btn-success float-right">Ajouter</a>
+<br>
 <h2>Liste des auteurs</h2>
+<br>
 <table class="table table-hover mt-4">
     <thead>
         <tr>
@@ -21,7 +23,7 @@
                 <td><?= $author->getCity() ?></td>
                 <td><?= $author->getCountry() ?></td>
                 <td><?= $author->getUserId() ?></td>
-                <td><?= $users[$author->getId()]['firstname'] . " " . $users[$author->getId()]['lastname'] ?></td>
+                <td><?= $users[$author->getId()]['firstname'] . "&nbsp;" . "&nbsp;" . $users[$author->getId()]['lastname'] ?></td>
 
                 <td></td>
                 <td class="text-right">

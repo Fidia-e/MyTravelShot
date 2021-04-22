@@ -15,21 +15,6 @@
                           <i class="fa fa-eye"></i>
                         </a>
                       </li>
-                      <li>
-                        <a href="#" data-toggle="tooltip" data-original-title="Click if you like it">
-                          <i class="fa fa-heart"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" data-toggle="tooltip" data-original-title="Download">
-                          <i class="fa fa-download"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" data-toggle="tooltip" data-original-title="More information">
-                          <i class="fa fa-info"></i>
-                        </a>
-                      </li>
                     </ul>
                     <h3><?= $shot->getTitle(); ?></h3>
                     <p><?= $shot->getDescription(); ?></p>

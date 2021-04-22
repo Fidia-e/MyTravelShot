@@ -42,7 +42,7 @@
                 <a href="<?= $router->generate('main-home') ?>"><i class="fa fa-camera sr-icons"></i> Galerie </a>
               </li>
               <li class="lien">
-                <a href="<?= $router->generate('author-browse') ?>"><i class="fa fa-camera sr-icons"></i> Par auteur </a>
+                <a href="<?= $router->generate('author-browse') ?>"><i class="fa fa-camera sr-icons"></i> Auteurs </a>
               </li>
               <?php if(isset($_SESSION['currentUser'])) : ?>
               <li class="lien">

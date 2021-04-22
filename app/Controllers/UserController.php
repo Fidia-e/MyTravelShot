@@ -238,7 +238,10 @@ class UserController extends CoreController {
      */
     public function showProfil()
     {
-        $this->show('user/profil');
+        // génération d'un token aléatoire 
+        $token = $this->generateCsrfToken();
+
+        $this->show('user/profil', ['token' => $token]);
     }
 
     /**
@@ -249,7 +252,6 @@ class UserController extends CoreController {
     {
         // récupération du utilisateur courant stocké en session
         $user = $_SESSION['currentUser'];
-        //dd($user);
 
         // génération d'un token CSRF
         $token = $this->generateCsrfToken();

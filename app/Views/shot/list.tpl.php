@@ -16,9 +16,9 @@
         <?php foreach($shots as $shot): ?>
             <tr class="shotsList">
                 <th scope="row"><?= $shot->getId() ?></th>
-                <td><?= $shot->getTitle() ?></td>
+                <td style="max-width: 150px"><?= $shot->getTitle() ?></td>
                 <td style="word-wrap: break-word; max-width: 400px"><?= $shot->getPicture() ?></td>
-                <td><?= $shot->getDescription() ?></td>
+                <td style="max-width: 300px"><?= $shot->getDescription() ?></td>
                 <td><?= $authors[$shot->getId()]->getUsername(); ?></td>
                 <td class="text-right">
                     <a href="<?= $router->generate('shot-edit', ['id' => $shot->getId()]) ?>" class="btn btn-sm btn-warning">
