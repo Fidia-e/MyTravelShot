@@ -1,7 +1,7 @@
 <?php if(isset($_SESSION['currentUser'])) : ?>
 <br>
     <p class="display-4">
-      <h1 class="bonjour"> Hello <?php echo $_SESSION['currentUser']->getFirstname() ?> !</h1>
+      <h1 class="bonjour"> Hello <?php echo $_SESSION['currentUser']->getFirstname() . "&nbsp;" . $_SESSION['currentUser']->getLastname()  ?> !</h1>
     </p>
 <?php endif; ?>
 <br>

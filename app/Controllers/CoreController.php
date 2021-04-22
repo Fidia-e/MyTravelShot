@@ -111,7 +111,7 @@ abstract class CoreController {
 		// à la place de $viewName, je mets le chemin dynamisé des templates
 		require __DIR__ . '/../views/header.tpl.php';
 		require __DIR__ . '/../views/' . $viewName . '.tpl.php';
-		require __DIR__ . '/../views/footer.tpl.php';
+        require __DIR__ . '/../views/footer.tpl.php';
 	}
 
     /**
