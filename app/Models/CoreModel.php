@@ -41,9 +41,9 @@ abstract class CoreModel
     /**
      * Méthode permettant de sauvegarde en BDD, n'importe quel model
      * si l'objet a un ID de défini, c'est qu'il existe déjà
-     * -> donc je dois mettre à jour son entrée en BDD
+     *      -> donc je dois mettre à jour son entrée en BDD
      * si l'objet n'a pas encore d'ID, il n'existe pas dans la BDD
-     * -> je dois donc l'insérer
+     *      -> je dois donc l'insérer
      */
     public function save()
     {

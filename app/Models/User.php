@@ -39,6 +39,7 @@ class User extends CoreModel {
         // je retourne le résultat de ma requête sous forme de tableau d'objets
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
         
+        // je retourne le résultat
         return $results;
     }
 
@@ -75,10 +76,10 @@ class User extends CoreModel {
      */
     public static function findByEmail($email)
     {
-        // Récupération de PDO
+        // récupération de PDO
         $pdo = Database::getPDO();
 
-        // Écriture de la requête SQL
+        // écriture de la requête préparée
         $sql = "SELECT * 
                 FROM `user`
                 WHERE `email` = :email

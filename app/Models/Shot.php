@@ -30,7 +30,6 @@ class Shot extends CoreModel {
         // je déclare ma requête
         $sql = 'SELECT * FROM `shot`';
 
-
         // je récupère une instance de la class pdoStatement
         // je lui donne ma requête
         $pdoStatement = $pdo->query($sql);
@@ -38,6 +37,7 @@ class Shot extends CoreModel {
         // je retourne le résultat de ma requête sous forme de tableau d'objets
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
 
+        // je retourne le résultat
         return $results;
     }
 
@@ -71,6 +71,7 @@ class Shot extends CoreModel {
         // je retourne le résultat de ma requête sous forme de tableau d'objets
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
 
+        // je retourne le résultat
         return $results;
     }
 
@@ -106,7 +107,6 @@ class Shot extends CoreModel {
      */
     public function insert()
     {
-       
         // appel de notre interprète SQL : PDO
         $pdo = Database::getPDO();
 

@@ -20,7 +20,7 @@ class AuthorController extends CoreController {
         $viewVars = ['authors' => $datas];
 
         // j'appelle ma méthode show qui va afficher le bon template
-        // à qui je passe mon tableau de données viewVars
+        // à qui je passe mon tableau de données $viewVars contenant tous les auteurs
         $this->show('authors', $viewVars);
     }
 
@@ -36,6 +36,10 @@ class AuthorController extends CoreController {
     public function list()
     {
         // je récupère la liste de tous mes auteurs
+        // j'initialise $datasUser en tableau vide 
+        // je boucle sur chaque auteur
+        // et je viens remplir $datasUser avec les informations utilisateur
+        // respectives à chaque auteur de chaque publication
         $datas = Author::findAll();
         $datasUser = [];
         foreach($datas as $author){
@@ -43,9 +47,10 @@ class AuthorController extends CoreController {
         }
 
         // génération d'un token CSRF 
+        // pour ptotéger la route
         $token = $this->generateCsrfToken();
 
-        // je les stocke dans un tableau viewVars
+        // je stocke les données à envoyer dans un tableau viewVars
         $viewVars = [
                 'authors' => $datas, 
                 'users' => $datasUser,
@@ -53,7 +58,7 @@ class AuthorController extends CoreController {
                 ];
 
         // j'appelle ma méthode show qui va afficher le bon template
-        // à qui je passe mon tableau de données viewVars
+        // à qui je passe mon tableau de données $viewVars
         $this->show('author/list', $viewVars);
     }
 
@@ -66,19 +71,22 @@ class AuthorController extends CoreController {
     {
         // je récupère mes auteurs 
         // pour pouvoir récupérer les utilisateurs correspondants
+        // et alimenter mon formulaire d'ajout
         $datas = Author::findAll();
         $datasUser = User::findAll();
 
-        // génération d'un token aléatoire 
+        // génération d'un token pour protéger la route 
         $token = $this->generateCsrfToken();
         
+        // définition de mon tableau de données à envoyer 
         $viewVars = [
                     'authors' => $datas, 
                     'users' => $datasUser,
                     'token' => $token
                 ];
 
-
+        // j'appelle ma méthode show qui va afficher le bon template
+        // à qui je passe mon tableau de données $viewVars
         $this->show('author/add', $viewVars);
     }
 
@@ -133,6 +141,7 @@ class AuthorController extends CoreController {
             $author = new Author;
 
             // je définie les différentes propriétés de l'utilisateur
+            // avec les données fournies par le formulaire
             $author->setUsername($username);
             $author->setCity($city);
             $author->setCountry($country);
@@ -157,6 +166,8 @@ class AuthorController extends CoreController {
         } else {
 
             // j'affiche le formulaire avec les erreurs
+            // puis je garde les informations remplies
+            // pour lui éviter de tout rentrer à nouveau
             $viewVars = [
                 'errorList' => $errorList,
                 'inputValues' => [
@@ -167,6 +178,8 @@ class AuthorController extends CoreController {
                 ],
             ];
 
+            // j'appelle ma méthode show qui va afficher le bon template
+            // à qui je passe mon tableau de données $viewVars
             $this->show('author/add', $viewVars);
         }
     }
@@ -179,10 +192,14 @@ class AuthorController extends CoreController {
     public function edit($id)
     {
         // récupération de l'auteur lié à l'ID présent dans l'URL
+        // récupération des données d'un objet Auhor
+        // récupération des tous les utilisateurs
+        // génération du token pour protéger la route
         $author = Author::find($id);
         $datasUser = User::findAll();
         $token = $this->generateCsrfToken();
 
+        // définition de mon tableau de données à envoyer 
         $viewVars = [
             'author' => $author, 
             'users' => $datasUser,
@@ -191,6 +208,7 @@ class AuthorController extends CoreController {
         
 
         // envoi de l'auteur chargé à la vue
+        // ainsi que les données stockées dans $viewVars
         $this->show('author/edit', $viewVars);
     }
 
@@ -204,11 +222,17 @@ class AuthorController extends CoreController {
         // récupération de l'auteur lié à l'ID présent dans l'URL
         $author = Author::find($id);
 
-        // récupération des champs du formulaire
+        // récupération et validation des valeurs des champs
+        // filter_input() vérifie les variables envoyées par l'utilisateur :
+            // elle renvoie :
+            // la valeur de la variable en cas de succès
+            // FALSE en cas d'échec 
+            // NULL si la variable n'est pas définie
         $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
         $city = trim(filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING));
         $country = trim(filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING));
         $user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
+        $token = filter_input(INPUT_POST, 'token');
 
         // création d'un tableau d'erreurs, vide
         $errorList = [];
@@ -219,22 +243,44 @@ class AuthorController extends CoreController {
             $errorList[] = "Erreur CSRF ! Bien essayé.";
         }
 
-        // grâce aux setters, je mets à jour mon auteur 
-        // et lui attribue ses nouvelles valeurs
-        $author->setUsername($username);
-        $author->setCity($city);
-        $author->setCountry($country);
-        $author->setUserId($user_id);
-        
-        // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
-        $author->save();
-        
-        // on efface le token de la session pour qu'il ne soit plus réutilisable
-        // on ne peut donc pas soumettre plusieurs fois le même formulaire
-        unset($_SESSION['csrfToken']);
+        if(empty($errorList)){
 
-        // redirection vers la page de la liste des utilisateurs
-        $this->redirect('author-list');
+            // grâce aux setters, je mets à jour mon auteur 
+            // et lui attribue ses nouvelles valeurs
+            $author->setUsername($username);
+            $author->setCity($city);
+            $author->setCountry($country);
+            $author->setUserId($user_id);
+            
+            // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
+            $author->save();
+            
+            // on efface le token de la session pour qu'il ne soit plus réutilisable
+            // on ne peut donc pas soumettre plusieurs fois le même formulaire
+            unset($_SESSION['csrfToken']);
+            
+            // redirection vers la page de la liste des utilisateurs
+            $this->redirect('author-list');
+
+        } else {
+            // j'affiche le formulaire avec les erreurs
+            // puis je récupère ce qu'il a entré dans les champs
+            // pour préremplir les champs
+            // et lui éviter de tout rentrer à nouveau
+            $viewVars = [
+                'errorList' => $errorList,
+                'inputValues' => [
+                    'token' => $token,
+                    'username' => filter_input(INPUT_POST, 'username'),
+                    'city' => filter_input(INPUT_POST, 'city'),
+                    'country' => filter_input(INPUT_POST, 'country'),
+                ],
+            ];
+
+            // j'appelle ma méthode show qui va afficher le bon template
+            // à qui je passe mon tableau de données viewVars
+            $this->show('author/edit', $viewVars);
+        }
 
     }
 

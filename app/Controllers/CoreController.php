@@ -15,7 +15,13 @@ abstract class CoreController {
     // on lui passe $route = false en argument
     // pour que les routes qui ne sont pas listées dans l'acl
     // restent accessibles 
-   public function __construct($route = false)
+    /**
+     * Méthode dite "constructeur" qui sera appelée à chaque fois
+     * que la class CoreController sera héritée
+     *
+     * @param boolean $route
+     */
+    public function __construct($route = false)
    {
     // définition du tableau (ACL) contenant les routes 
     // qui sont resteintes pour certains rôles

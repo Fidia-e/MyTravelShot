@@ -36,6 +36,7 @@ class Author extends CoreModel {
         // je retourne le résultat de ma requête sous forme de tableau d'objets
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
 
+        // je retourne le résultat
         return $results;
     }
 
@@ -89,14 +90,14 @@ class Author extends CoreModel {
         
         // remplacement du token :id par sa vraie valeur
         $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
+
         // j'exécute la requête et stocke le résultat dans une variable
         $result = $pdoStatement->execute();
-        //dump($result);
         
         // je récupère mon résultat
         $result = $pdoStatement->fetch(PDO::FETCH_ASSOC);
-        //dump($result);
 
+        // je retourne le résultat
         return $result;
     }
 
@@ -212,10 +213,10 @@ class Author extends CoreModel {
         // remplacement des tokens par leurs vraies valeurs
         $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
 
-        // on exécute la requête et on stocke le résultat dans une variable
+        // je exécute la requête et on stocke le résultat dans une variable
         $result = $pdoStatement->execute();
 
-        // on renvoie le résultat de la requête
+        // je renvoie le résultat de la requête
         return $result;
     }
 

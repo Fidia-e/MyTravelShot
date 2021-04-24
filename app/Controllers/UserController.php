@@ -14,15 +14,18 @@ class UserController extends CoreController {
         // récupération de tous les users grâce à la méthode statique "findAll()"
         $users = User::findAll();
 
-        // génération d'un token aléatoire 
+        // génération d'un token aléatoire
+        // pour protéger la route
         $token = $this->generateCsrfToken();
 
-        // je fais un tableau de données à passer à ma vue.
+        // définition du tableau de données $viewVars à passer à ma vue
         $viewVars = [
             'users' => $users,
             'token' => $token,
         ];
 
+        // j'appelle ma méthode show qui va afficher le bon template
+        // à qui je passe mon tableau de données viewVars
         $this->show('user/list', $viewVars);
     }
 
@@ -36,6 +39,8 @@ class UserController extends CoreController {
         // génération d'un token aléatoire 
         $token = $this->generateCsrfToken();
 
+        // j'appelle ma méthode show qui va afficher le bon template
+        // à qui je passe le token
         $this->show('user/add', ['token' => $token]);
     }
 
@@ -131,9 +136,11 @@ class UserController extends CoreController {
 
             // sinon, j'affiche le formulaire avec les erreurs
             $viewVars = [
+                // j'affiche les erreurs
                 'errorList' => $errorList,
 
                 // pour éviter à l'utilisateur de tout retaper 
+                // je préremplis les champs avec ce qu'il envoyé
                 'inputValues' => [
                     'token' => $token,
                     'firstname' => filter_input(INPUT_POST, 'firstname'),
@@ -142,6 +149,8 @@ class UserController extends CoreController {
                 ],
             ];
 
+            // j'appelle ma méthode show qui va afficher le bon template
+            // à qui je passe mon tableau de données viewVars
             $this->show('user/add', $viewVars);
         }
     }
@@ -156,8 +165,10 @@ class UserController extends CoreController {
         // récupération du utilisateur lié à l'ID présent dans l'URL
         $user = User::find($id);
 
+        // je protège la route avec un CSRF token
         $token = $this->generateCsrfToken();
         
+        // je définie le tableau $viewVars contenant les données à passer à ma vue
         $viewVars = [
                 'user' => $user, 
                 'token' => $token
@@ -165,6 +176,7 @@ class UserController extends CoreController {
 
 
         // envoi de l'utilisateur chargé à la vue
+        // avec les données
         $this->show('user/edit', $viewVars);
     }
 
@@ -178,11 +190,17 @@ class UserController extends CoreController {
         // récupération de l'utilisateur lié à l'ID présent dans l'URL
         $user = User::find($id);
 
-        // récupération et validation des champs du formulaire
+        // récupération et validation des valeurs des champs
+        // filter_input() vérifie les variables envoyées par l'utilisateur :
+            // elle renvoie :
+            // la valeur de la variable en cas de succès
+            // FALSE en cas d'échec 
+            // NULL si la variable n'est pas définie
         $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
         $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
         $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
         $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+        $token = filter_input(INPUT_POST, 'token');
 
         // création d'un tableau d'erreurs, vide
         $errorList = [];
@@ -193,22 +211,44 @@ class UserController extends CoreController {
             $errorList[] = "Erreur CSRF ! Bien essayé.";
         }
 
-        // grâce aux setters, je mets à jour mon utilisateur 
-        // et lui attribue ses nouvelles valeurs
-        $user->setFirstname($firstname);
-        $user->setLastname($lastname);
-        $user->setEmail($email);
-        $user->setRole($role);
+        if(empty($errorList)){
 
-        // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
-        $user->save();
-        
-        // on efface le token de la session pour qu'il ne soit plus réutilisable
-        // on ne peut donc pas soumettre plusieurs fois le même formulaire
-        unset($_SESSION['csrfToken']);
+            // grâce aux setters, je mets à jour mon utilisateur 
+            // et lui attribue ses nouvelles valeurs
+            $user->setFirstname($firstname);
+            $user->setLastname($lastname);
+            $user->setEmail($email);
+            $user->setRole($role);
+            
+            // appel de la méthode save() qui va sauvegarder les nouvelles infos dans la BDD
+            $user->save();
+            
+            // on efface le token de la session pour qu'il ne soit plus réutilisable
+            // on ne peut donc pas soumettre plusieurs fois le même formulaire
+            unset($_SESSION['csrfToken']);
+            
+            // redirection vers la page de la liste des utilisateurs
+            $this->redirect('user-list');
+            
+        } else {
+            // j'affiche le formulaire avec les erreurs
+            // puis je récupère ce qu'il a entré dans les champs
+            // pour préremplir les champs
+            // et lui éviter de tout rentrer à nouveau
+            $viewVars = [
+                'errorList' => $errorList,
+                'inputValues' => [
+                    'token' => $token,
+                    'firstname' => filter_input(INPUT_POST, 'firstname'),
+                    'lastname' => filter_input(INPUT_POST, 'lastname'),
+                    'email' => filter_input(INPUT_POST, 'email'),
+                ],
+            ];
 
-        // redirection vers la page de la liste des utilisateurs
-        $this->redirect('user-list');
+            // j'appelle ma méthode show qui va afficher le bon template
+            // à qui je passe mon tableau de données viewVars
+            $this->show('user/edit', $viewVars);
+        }
     }
 
     /**
@@ -239,8 +279,11 @@ class UserController extends CoreController {
     public function showProfil()
     {
         // génération d'un token aléatoire 
+        // pour protéger la route
         $token = $this->generateCsrfToken();
 
+        // appel de la méthode shwo() qui affcihe la vue
+        // à qui je passe le token
         $this->show('user/profil', ['token' => $token]);
     }
 
