@@ -221,7 +221,7 @@ INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `role`, 
 (8,	'Charlie',	'Brown',	'charlie@gmail.com',	'$2y$10$qEgl1nn.9R.gRs6QLxi6neK7p62QTmH7ic/j.wlJvjHtgflcVXhb2',	'author',	5,	'2021-03-31 11:00:00',	NULL),
 (9,	'Bernard',	'Morin',	'morin@gmail.com',	'$2y$10$RZRUGpdRrsbFgK2Rm7yULOUACDgigF1oJfBCymSZvRsQ.QQBe2o66',	'author',	3,	'2021-03-31 11:00:00',	NULL),
 (10, 'Indiana',	'Jones',	'indiana@gmail.com',	'$2y$10$qG7Et2Bte89okCMljYxRv.pXFTr9JAjjZDZ4vdFArBHnGercW6GNC',	'author',	10,	'2021-03-31 11:00:00',	NULL),
-(25, 'Fidia',	'El B',	'fidia@gmail.com',	'$2y$10$MAvjHCRWJkLrfPaCsmrCSuOBp8Oq3K5zD9a8EyAkr1VRn/7okiNqa',	'superadmin',	21,	'2021-04-23 16:31:53', 25, '2021-04-23 16:31:53'),
-(28, 'Quiche',	'Lorraine',	'quiche@gmail.com',	'$2y$10$rcJRMadsQgFfyYEWSZxd1OWbXTEdlSYlkie0/0Bvq/ZtJkrkiDT9q',	'author',	20,	'2021-04-21 21:01:29', NULL, '2021-04-21 21:01:29');
+(25, 'Fidia',	'El B',	'fidia@gmail.com',	'$2y$10$MAvjHCRWJkLrfPaCsmrCSuOBp8Oq3K5zD9a8EyAkr1VRn/7okiNqa',	'superadmin',	21,	'2021-04-23 16:31:53', '2021-04-23 16:31:53'),
+(28, 'Quiche',	'Lorraine',	'quiche@gmail.com',	'$2y$10$rcJRMadsQgFfyYEWSZxd1OWbXTEdlSYlkie0/0Bvq/ZtJkrkiDT9q',	'author',	20,	'2021-04-21 21:01:29', '2021-04-21 21:01:29');
 
 -- 2021-04-24 16:25:52
