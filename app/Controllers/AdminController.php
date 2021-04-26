@@ -53,7 +53,7 @@ class AdminController extends CoreController {
                 echo "Le mot de passe n'est pas bon !";
             }
         } 
-        // si l'email n'est pas reconnu, j'affiche le message d'eerreur suivant
+        // si l'email n'est pas reconnu, j'affiche le message d'erreur suivant
         else {
 
             echo "L'email n'existe pas !";
