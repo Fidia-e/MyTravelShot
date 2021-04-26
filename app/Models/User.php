@@ -26,7 +26,7 @@ class User extends CoreModel {
     public static function findAll()
     {
         // je me connecte ma BDD 
-        // en récupérant l'instance PDO
+        // en récupérant l'instance PDO qui contient la connexion
         $pdo = Database::getPDO();
 
         // je déclare ma requête
