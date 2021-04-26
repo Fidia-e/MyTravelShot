@@ -39,6 +39,18 @@ abstract class CoreModel
     }
 
     /**
+     * Set the value of updated_at
+     *
+     * @return  self
+     */ 
+    public function setUpdatedAt($updated_at)
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
      * Méthode permettant de sauvegarde en BDD, n'importe quel model
      * si l'objet a un ID de défini, c'est qu'il existe déjà
      *      -> donc je dois mettre à jour son entrée en BDD
@@ -62,4 +74,5 @@ abstract class CoreModel
     abstract protected function update();
     abstract protected static function find($id);
     abstract protected static function findAll();
+
 }
