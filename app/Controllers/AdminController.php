@@ -24,6 +24,11 @@ class AdminController extends CoreController {
     {
         // récupération des informations du formulaire
         // nettoyage et validations des champs grâce à la fonction filter_input()
+        // filter_input() vérifie les variables envoyées par l'utilisateur :
+            // elle renvoie :
+            // la valeur de la variable en cas de succès
+            // FALSE en cas d'échec 
+            // NULL si la variable n'est pas définie
         $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
         $password = filter_input(INPUT_POST, 'password');
         
