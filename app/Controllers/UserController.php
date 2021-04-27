@@ -196,10 +196,10 @@ class UserController extends CoreController {
             // la valeur de la variable en cas de succès
             // FALSE en cas d'échec 
             // NULL si la variable n'est pas définie
-        $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
-        $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
+        $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
+        $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS));
         $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
-        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_SPECIAL_CHARS);
         $token = filter_input(INPUT_POST, 'token');
 
         // création d'un tableau d'erreurs, vide

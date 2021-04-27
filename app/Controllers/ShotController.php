@@ -108,7 +108,7 @@ class ShotController extends CoreController {
             // la valeur de la variable en cas de succès
             // FALSE en cas d'échec 
             // NULL si la variable n'est pas définie
-        $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
+        $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS));
         $picture = trim(filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING));
         $description = trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
         $author_id = filter_input(INPUT_POST, 'author_id', FILTER_SANITIZE_NUMBER_INT);
@@ -231,7 +231,7 @@ class ShotController extends CoreController {
             // la valeur de la variable en cas de succès
             // FALSE en cas d'échec 
             // NULL si la variable n'est pas définie
-        $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
+        $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS));
         $picture = trim(filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING));
         $description = trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING));
         $author_id = filter_input(INPUT_POST, 'author_id', FILTER_SANITIZE_NUMBER_INT);
