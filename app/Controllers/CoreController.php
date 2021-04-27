@@ -19,9 +19,9 @@ abstract class CoreController {
      * Méthode dite "constructeur" qui sera appelée à chaque fois
      * que la class CoreController sera héritée
      *
-     * @param boolean $route
+     * @param [] $route
      */
-    public function __construct($route = false)
+    public function __construct($route = [])
    {
     // définition du tableau (ACL) contenant les routes 
     // qui sont resteintes pour certains rôles
