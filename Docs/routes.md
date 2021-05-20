@@ -1,7 +1,7 @@
 ## Routes
 
 | URL | Méthode HTTP | Controller | Méthode | Contenu | Commentaire |
-|--|--|--|--|--|--|--|
+|--|--|--|--|--|--|
 |`/`|`GET`|`MainController`|`home`|Page d'accueil du site|Liste de toutes les publications|
 |`/auteurs`|`GET`|`AuthorController`|`browse`|Page auteurs|Piste tous les auteurs du site|
 |`/auteurs/photos/[i:author_id]`|`GET`|`ShotController`|`browseByAuthor`|Photos de chaque auteur|Liste les publications respectives de chaque auteur|
