@@ -1,4 +1,4 @@
-# Routes
+## Routes
 
 | URL | Méthode HTTP | Controller | Méthode | Contenu | Commentaire |
 |--|--|--|--|--|--|--|
