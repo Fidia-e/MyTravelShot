@@ -1,4 +1,4 @@
-### 📸 My Travel Shot
+# 📸 My Travel Shot
 
 ## What is My Travel Shot?
 
