@@ -9,7 +9,7 @@ The home page of the site, exposes all the photos published in the whole applica
 
 *******
 __Nevertheless, My Travel Shot is an application that I thought and realized, only with the aim of covering the typical back-end activities for the passage of the professional title Web and Mobile Web Developer.
-Therefore, I have only developed the back-office of the application.__. 
+Therefore, I have only developed the back-office of the application.__  
 _I had a deadline of two weeks_
 *******
 
