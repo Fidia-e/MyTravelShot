@@ -16,8 +16,9 @@ _I had a deadline of two weeks_
 
 __Users and Roles:__  
 Three roles are possible: _Author, Admin and Super-admin_
-You must be registered to the site to be assigned the Author role. An author can see the list of users and their role, their associated author nickname and their respective photos. But he can only manage his profile and his personal photos: create, modify and delete them.
-An admin has the same rights as the author, but in addition he can manage all the authors by creating, modifying and deleting them.
+You must be registered to the site to be assigned the Author role.  
+An author can see the list of users and their role, their associated author nickname and their respective photos. But he can only manage his profile and his personal photos: create, modify and delete them.  
+An admin has the same rights as the author, but in addition he can manage all the authors by creating, modifying and deleting them.  
 The super-admin can manage absolutely everything on the site. Including adding a new user, modifying or deleting it.
 
 ## All the features:
