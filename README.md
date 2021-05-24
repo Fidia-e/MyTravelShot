@@ -12,9 +12,9 @@ Therefore, I have only developed the back-office of the application.__
 _I had a deadline of two weeks_  
 
 
-## How does My Travel Shot work?
+## How does My Travel Shot work?  
 
-__Users and Roles:__
+__Users and Roles:__  
 Three roles are possible: _Author, Admin and Super-admin_
 You must be registered to the site to be assigned the Author role. An author can see the list of users and their role, their associated author nickname and their respective photos. But he can only manage his profile and his personal photos: create, modify and delete them.
 An admin has the same rights as the author, but in addition he can manage all the authors by creating, modifying and deleting them.
@@ -38,7 +38,7 @@ respective privileges
 - Author, admin and super-admin can log out
 
 ## 🛠 Technologies :
-- **Pattern : MVC** (natif PHP)
+- **Pattern MVC** (natif PHP)
 - Bootstrap: for easy integration and management of forms 
 - Altorouter: for route mapping
 - Alto-dispatcher : to dispatch mapped routes
